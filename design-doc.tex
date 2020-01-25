@@ -11,54 +11,109 @@
 % Story and gameplay
 % Schedule
 
-\title{Superhero Fantasy Platformer(working)\\
-	\large Super Fantasy 7}
-	%\includegraphics[scale=.15]{./images/logo.png}
-	%for whatever reason, it will not appear here correctly
+\title{Shattered Reformation (Working)\\Super Fantasy 7}
 \author{Savanna Middaugh, Hannah Murphy, Orion Nassaux, Jacob Santillanes}
 \date{\today\\v1.0.0}
 
 \begin{document}
-\maketitle
-\includegraphics[scale=.15]{./images/logo.png}
-%just so i can copy paste \subsection*{}
+\begin{titlepage}
+    \centering
+    \vfill
+    {\bfseries\Large
+        "Shattered Reformation" Design Document\\
+        Game by Super Fantasy 7\\
+        \vskip2cm
+        Savanna Middaugh, Hannah Murphy, Orion Nassaux, Jacob Santillanes\\
+    }    
+    \vfill
+    \includegraphics[width=8cm]{./images/logo.png}
+    \vfill
+    \vfill
+\end{titlepage}
+
 \section{Overview}
 
 \subsection*{Theme, Setting, Genre}
-We will be designing a 3d metroidvania platformer that takes place in a (mostly) renaissance medieval, high fantasy, setting. 
+We will be designing a 3d metroidvania platformer that takes place in a (mostly)
+ renaissance medieval, high fantasy, setting. 
 
 \subsection*{Core Gameplay Mechanics (Brief)}
-The core gameplay will consist of going through dungeons to get a special item and killing the boss at the end of the dungeon. The dungeons will have at least two rooms with enemies and one puzzle room. The enemies you kill will drop health so as to keep the player playing aggressively rather than defensively. As you kill enemies you will get xp and you can use this to upgrade your skill with your items. 
+The core gameplay will consist of going through dungeons to get a special item 
+and killing the boss at the end of the dungeon. The dungeons will have at least 
+two rooms with enemies and one puzzle room. The enemies you kill will drop 
+health so as to keep the player playing aggressively rather than defensively. As
+ you kill enemies you will get xp and you can use this to upgrade your skill 
+ with your items. 
 
 \subsection*{Target Platform}
-The game will be developed for PC using keyboard controls. Gamepad controllers will be implemented if time allows.
+The game will be developed for PC using keyboard controls. Gamepad controllers 
+will be implemented if time allows.
 
 \subsection*{Project Scope}
+The upper bound of the project's scope is:
+\begin{itemize}
+    \item Four unique bosses (two from a fantasy setting, two from a superhero setting)
+    \item Four unique special items (two from a fantasy setting, two from a superhero setting)
+    \item Four procedurally generated dungeons
+\end{itemize}
+
+The projects scope will begin much smaller and expand to the upper bound if time
+and other resources allow. At a minimum, the projects scope will be:
+\begin{itemize}
+    \item Two unique bosses (one from a fantasy setting, one from a superhero setting)
+    \item Two unique special items (one from a fantasy setting, one from a superhero setting)
+    \item Two procedurally generated dungeons
+\end{itemize}
+
+Scope will expand first to three sets of bosses, unique items, and dungeons and
+then expand to four if there is opportunity to expand the scope.
 
 \subsection*{Game Time Scale}
-There will be a working version of this game at the end of the 16 week time frame that is given.
+There will be a working version of this game at the end of the 16 week time 
+frame that is given.
 
 \subsection*{Team Structure}
-Jacob Santillanes (Ulteelectrom) is in the art section of the class and will be proving assets for the game.
-Savanna Middaugh (savymidd) will be providing assets for the game.
+Jacob Santillanes (Ulteelectrom) is in the art section of the class and will be 
+providing assets for the game. \\
+
+Savanna Middaugh (savymidd) is in the art section of the class and will be 
+providing assets for the game. \\
+
+Hannah Murphy (murphy-97 on GitHub, HanJan on Discord) is in the programming
+section of the class and will be implementing game systems in code and Unity.
+
 \subsection*{Licenses/Hardware/Other Info}
-The game will be made in Unity with blender being used to create assests.  \\
+The game will be made in Unity with assests created in Blender.  \\
+
 Github repositiry: https://github.com/murphy-97/SuperFantasy7
 
 \subsection*{Influences}
-We took inspiration from several sources
+We took inspiration from several sources:
+
 \begin{itemize}
-    \item Metroidvania games. We decided that this format was how we wanted to design the game play restrictions
-    \item My Hero Academia, DC and Marvel comics: Superheroes are an element in the game.
-    \item Fantasy Games (varied, like the Legend of Zelda games): We decided to go with a fantasy setting
-    \item %Not sure where the skill tree idea came from
-    \item Legend of Zelda games: the dungeons having a set pattern we can assume
-    \item Rogue-like games: the dungeons having random rooms.
-    \item %not sure where the item drop/health drop ideas came from
+    \item Metroidvania games: Our game will feature an open world of
+    interconnected side-scolling platforming areas
+    \item My Hero Academia, DC and Marvel: Half of the game premise draws from
+    superhero media.
+    \item Fantasy Genre: Half of the game premise draws from the fantasy genre.
+    \item Skill Trees: Players will upgrade skills by spending points in a tree
+    like in many other action-adventure games like Middle Earth: Shadow of
+    Mordor and STAR WARS Jedi: Fallen Order.
+    \item Legend of Zelda games: Dungeons feature puzzles, special items, and
+    bosses.
+    \item Rogue-like games: Dunegones are procedurally generated.
+    \item Health Pickups: Players will recover health instantly from item
+    pickups rather than maintaining an inventory, as in games like STAR WARS
+    Battlefront (2004 and 2005 releases) and DOOM (2016). 
 \end{itemize}
+
 \subsection*{Elevator Pitch}
-%I can't think of a good name - Orion
-Dark lords stole the (placeholder name) causing the world to merge with another world. You have to defeat them and return the (placeholder name) to their rightful place in order to separate the worlds once again and return everything to normal. 
+The game's working title is "Shattered Reformation" \\
+
+Dark lords shattered the Planar Focus, creating chaos in the multiverse and
+causing two worlds to merge. You have to defeat them and collect the Shards of
+Alignment to reassemble the Planar Focus. Only then will the worlds be returned
+to their natural orders.
 
 \section{Unique Project Aspects}
 % Premise: sci-fi plus fantasy
@@ -72,16 +127,46 @@ Dark lords stole the (placeholder name) causing the world to merge with another 
 % Two worlds collided when the magic thingies were stolen
 % The player must defeat fantasy monsters and super villains to bring alignment back to the multiverse
 \subsection*{Story (Brief)}
-Bad Guys are merging two worlds together. One is a high fantasy setting and one is a super hero setting. You need to separate the worlds and return everything to normal. You play as either a hero or a knight. 
+The villains have merged two worlds together. One is a high fantasy setting and
+one is a superhero setting. You need to separate the worlds and return
+everything to normal. You play as either a hero or a knight. 
 
 \subsection*{Gameplay (Brief)}
-Basic platforming. The player can collect special items to interact with the environment or find new ways of beating the enemies. The player will have a basic attack, and a skill tree to upgrade their items and their basic attacks. 
+Basic platforming. The player can collect special items to interact with the
+environment or find new ways of beating the enemies. The player will have a
+basic attack, and a skill tree to upgrade their items and their basic attacks. 
 
 \section{Schedule}
 % Look at assignment due dates
 % Start with two bosses and items
 % Add a third boss and item if time
 % Add a fourth boss and item if time
+
+\subsection*{Phase 1: Conceptualization}
+
+This phase is from 24 January 2020 through 10 February 2020. This phase will
+flesh out early game design concepts, such as item, boss, and dungeons designs.
+These assets will be designed mechanically and thematically, but no final coding
+or art will be produced during this time.
+
+\subsection*{Phase 2: Pre-Production}
+
+This phase is from 10 February 2020 through 2 March 2020. This phase will
+include development of early art assets and gray-box prototyping in Unity.
+We will experiment with game systems and art individually.
+
+\subsection*{Phase 3: Production}
+
+This phase is from 2 March 2020 through 13 April 2020. This phase will see
+finalization of assets, integration of assets in Unity, and full implementation
+of all game mechanics. The game should be feature-complete by the end of this
+phase.
+
+\subsection*{Phase 4: Finalization}
+
+This phase is from 13 April 2020 through 1 May 2020. No new features or assets
+will be created during this time. Game features will be adjusted or fixed, and
+that content which cannot be made playable will be cut.
 
 % 03 Feb: Conceptualization 2
 % 10 Feb: Conceptualization 3
