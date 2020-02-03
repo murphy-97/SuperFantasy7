@@ -15,13 +15,22 @@ public class Player_Character : MonoBehaviour
 {
     /* CLASS ATTRIBUTES (STATIC) */
 
+    /* Player data */
+
     /* CLASS METHODS (STATIC) */
 
     /* OBJECT ATTRIBUTES */
 
+    // Movement data
+    [Header("Movement Data")]
+    [SerializeField] private float speed_run;
+    [SerializeField] private float speed_jump;
+    private Rigidbody rigidbody;
+
     // Respawn data
+    [Header("Respawn Data")]
     [SerializeField] private float respawn_timer;
-    private Transform respawn_loc;
+    [SerializeField] private Transform respawn_loc;
     private bool dead = false;
 
     /* UNITY BUILT-IN METHODS */
@@ -29,7 +38,7 @@ public class Player_Character : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        rigidbody = gameObject.GetComponent<Rigidbody>();
     }
 
     // Update is called once per frame
