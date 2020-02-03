@@ -2,8 +2,9 @@
 
 The "Player_Char" entitiy represents the actual character object controlled by
 the player in the current life. It is created on spawn and destroyed on death.
-The equipment, health, and abilities accessible to the player are determined by
-the state of the Player entity defined in Player.cs.
+
+The equipment, ,ax health, and abilities accessible to the player are stored in
+static variables, guaranteeing persistence between scene loads.
 
  */
 
@@ -11,21 +12,30 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Player_Character : MonoBehaviour
+public class Player_Char : MonoBehaviour
 {
     /* CLASS ATTRIBUTES (STATIC) */
 
     /* Player data */
+    private static int health_max;
+    private static int attack_basic_damage;    
 
     /* CLASS METHODS (STATIC) */
 
     /* OBJECT ATTRIBUTES */
 
+    // Combat data
+    [Header("Combat Data")]
+    [SerializeField] private int health_current;
+
     // Movement data
     [Header("Movement Data")]
     [SerializeField] private float speed_run;
     [SerializeField] private float speed_jump;
-    private Rigidbody rigidbody;
+    private Rigidbody rb;
+    [SerializeField] private bool is_grounded = false;
+    Vector3 speed_change;
+    private bool stop_running;
 
     // Respawn data
     [Header("Respawn Data")]
@@ -38,7 +48,7 @@ public class Player_Character : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        rigidbody = gameObject.GetComponent<Rigidbody>();
+        rb = gameObject.GetComponent<Rigidbody>();
     }
 
     // Update is called once per frame
@@ -51,14 +61,54 @@ public class Player_Character : MonoBehaviour
             users to customize controls or use a control scheme other than a
             mouse and keyboard.
         */
-        bool move_up = !dead && Input.GetAxis("Vertical") > 0;
-		bool move_down = !dead && Input.GetAxis("Vertical") > 0;
-		bool move_l = !dead && Input.GetAxis("Horizontal") < 0;
-		bool move_r = !dead && Input.GetAxis("Horizontal") < 0;
+        bool move_up = !dead && Input.GetAxisRaw("Vertical") > 0;
+		bool move_down = !dead && Input.GetAxisRaw("Vertical") < 0;
+		bool move_l = !dead && Input.GetAxisRaw("Horizontal") < 0;
+		bool move_r = !dead && Input.GetAxisRaw("Horizontal") > 0;
 
         bool basic_attack = Input.GetButtonDown("BasicAttack");
         bool use_item = Input.GetButtonDown("UseItem");
         bool cycle_item = Input.GetButton("CycleItem");
+
+        // Interpret player controls
+        float ground_dist = gameObject.GetComponent<Collider>().bounds.extents.y;
+        is_grounded = Physics.Raycast(transform.position, Vector3.down, ground_dist);
+
+        if (is_grounded) {
+            // Player is on the ground
+
+            // Side-to-side controls
+            if (move_l && !move_r) {
+                // Move left
+                speed_change.x = -1.0f * speed_run;
+            } else if (move_r && !move_l) {
+                // Move right
+                speed_change.x = speed_run;
+            } else if (!move_l && !move_r) {
+                // Stop side-to-side movement
+                // Force slowing down for first bit, then use drag
+                if (Mathf.Abs(rb.velocity.x) > 0.5f * speed_run) {
+                    speed_change.x = -0.45f * rb.velocity.x;
+                }
+            }
+
+            // Jumping controls
+            if (move_up && !move_down) {
+                // Jump
+                speed_change.y = speed_jump;
+            }
+
+        } else {
+            // Player is off the ground - use air controls
+        }
+    }
+
+    // Used by the physics system
+    void FixedUpdate()
+    {
+        // Update velocity
+        rb.AddForce(speed_change, ForceMode.VelocityChange);
+        speed_change = Vector3.zero;    // Reset speed changes for next update
     }
 
     /* SPECIFIED METHODS */
