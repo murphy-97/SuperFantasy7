@@ -107,8 +107,29 @@ public class Player_Char : MonoBehaviour
 
         } else {
             // Player is off the ground - use air controls
+
+            // Early jump termination
             if (!move_up && (rb.velocity.y > 0.0f)) {
                 speed_change.y = jump_fall_rate * rb.velocity.y;
+            }
+
+            // Side-to-side air controls
+            float side_thresh = 0.5f;
+
+            if (move_l && !move_r) {
+                // Move left
+                if (rb.velocity.x > side_thresh) {
+                    speed_change.x = -0.75f * speed_run;
+                } else {
+                    speed_change.x = speed_run * (-2.0f / (1.0f + Mathf.Abs(rb.velocity.x)));
+                }
+            } if (move_r && !move_l) {
+                // Move right
+                if (rb.velocity.x < -1.0f * side_thresh) {
+                    speed_change.x = 0.75f * speed_run;
+                } else {
+                    speed_change.x = speed_run * (2.0f / (1.0f + Mathf.Abs(rb.velocity.x)));
+                }
             }
         }
     }
