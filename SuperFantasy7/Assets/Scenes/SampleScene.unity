@@ -432,6 +432,7 @@ MonoBehaviour:
   health_current: 0
   speed_run: 0.5
   speed_jump: 10
+  jump_fall_rate: -0.25
   is_grounded: 0
   respawn_timer: 0
   respawn_loc: {fileID: 0}

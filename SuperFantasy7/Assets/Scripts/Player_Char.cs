@@ -32,8 +32,9 @@ public class Player_Char : MonoBehaviour
     [Header("Movement Data")]
     [SerializeField] private float speed_run;
     [SerializeField] private float speed_jump;
+    [Range(-1,0)][SerializeField] private float jump_fall_rate; // Used to end jump
     private Rigidbody rb;
-    [SerializeField] private bool is_grounded = false;
+    [SerializeField] private bool is_grounded = false;  // Serialized for debugging
     Vector3 speed_change;
     private bool stop_running;
 
@@ -87,8 +88,14 @@ public class Player_Char : MonoBehaviour
             } else if (!move_l && !move_r) {
                 // Stop side-to-side movement
                 // Force slowing down for first bit, then use drag
-                if (Mathf.Abs(rb.velocity.x) > 0.5f * speed_run) {
-                    speed_change.x = -0.45f * rb.velocity.x;
+
+                // Player actively slows down while speed above slow_thresh
+                float slow_thresh = 0.5f;
+                // Player slows down at multiple of slow_rate. Must be < 0
+                float slow_rate = -0.45f;
+
+                if (Mathf.Abs(rb.velocity.x) > slow_thresh * speed_run) {
+                    speed_change.x = slow_rate * rb.velocity.x;
                 }
             }
 
@@ -100,6 +107,9 @@ public class Player_Char : MonoBehaviour
 
         } else {
             // Player is off the ground - use air controls
+            if (!move_up && (rb.velocity.y > 0.0f)) {
+                speed_change.y = jump_fall_rate * rb.velocity.y;
+            }
         }
     }
 
