@@ -1,11 +1,14 @@
-Players		Singleplayer at first, maybe a second if time allows
+Players	
+		Singleplayer at first, maybe a second if time allows
 		If we have a second player:
 		- Enable two-player puzzles for dungeon generation
 		- Increase enemy health (maybe x2, but experiment)
 
-Objective	Find special item and defeat boss in each dungeon
+Objective
+		Find special item and defeat boss in each dungeon
 
-Procedures	- Player navigates dungeon in 2D space
+Procedures
+		- Player navigates dungeon in 2D space
 		- Player recovers health by defeating enemies
 		- Player recovers health by interrupting charge attacks
 		- Player deals extra damgage by interrupting charge attacks
@@ -29,13 +32,15 @@ Procedures	- Player navigates dungeon in 2D space
 				- Call the upgrade perk "Chaos Theory"
 			- fires a sphere with a conical tail that shows the path
 
-Rules		- One special item room per dungeon
+Rules	
+		- One special item room per dungeon
 		- One boss room per dungeon
 		- Minion enemies spawn in dungeons and the overwold
 		- Special items spawn once per world
 		- Bosses spawn once per world
 
-Resources	- Health
+Resources
+		- Health
 		- Special items charge
 			- Time to compress grappling hook spring
 				- Hook has lower range if not full energy
@@ -44,13 +49,16 @@ Resources	- Health
 		- Experience points (spent on skill tree upgrades)
 		- Health pickups dropped by minions (must be picked up)
 
-Conflict	Player vs Game
+Conflict
+		Player vs Game
 		- Defeating enemies
 		- Solving puzzles
 		- Solving navigation
 
-Boundaries	- Player moves between rooms
+Boundaries
+		- Player moves between rooms
 		- Minions, puzzles, and bosses limited to a single room in dungeons
 		- Minions in the overwold limited to patrol areas
 
-Outcome		Player defeats all the bosses, or they give up.
+Outcome	
+		Player defeats all the bosses, or they give up.
