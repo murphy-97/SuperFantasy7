@@ -100,9 +100,9 @@ public class Player_Char : MonoBehaviour
             }
 
             // Jumping controls
-            if (move_up && !move_down) {
+            if (move_up && !move_down && rb.velocity.y <= 0.0f) {
                 // Jump
-                speed_change.y = speed_jump;
+                speed_change.y = speed_jump - rb.velocity.y;
             }
 
         } else {
