@@ -206,8 +206,42 @@ will evolve how they navigate the world and combat enemies.
 
 \section{Project Description}
 
+%I wanted to do a more streamlined explanation of rules and procedures but
+% it might be better just to do bullets for the rules and procedues. If this
+% is too clunky I'll change it to bullets
 \subsection{Rules \& Procedures}
-Text goes here. Orion
+
+The overall procedure is that the player starts in an overworld and, as they explore 
+it, they will discover and enter dungeons, defeat enemies in the dungeon, acquire a 
+special item, use that item to solve a puzzle and then fight a boss at the end of the 
+dungeon. Each dungeon in the game follows a set of rules. Each dungeon consists of 
+dungeon rooms, a special item room, and a boss room. Dungeon rooms are the main 
+portion of the dungeon. These rooms contain obstacles like enemy minions and challenging 
+platform layouts. The dungeon room is the meat of the dungeon and the most common 
+type of room. Each dungeon contains only one special item room. 
+
+This room is entirely optional and upon entering the room, the player acquires a special 
+item. The rest of the room is a puzzle that requires the use of the item to complete. There 
+are currently two items we plan on implementing. The grappling hook and the staff of blasting. 
+The grappling hook will start out by only being able to pull small enemies to the player and 
+can be upgraded to pull larger enemies. However, hooking bosses will always pull the player 
+towards the boss. It can also be used to hook targets and pull the player to the target. The 
+staff of blasting is a staff that shoots projectiles that explode upon hitting enemies and breakable 
+walls. If the player is too close to the explosion they will take damage but only part of the 
+damage an enemy would take. The explosion radius and the damage can be upgraded similarly
+ to the grappling hook. In addition, the projectile will bounce off of surfaces twice before automatically
+  blowing up. This too can be upgraded to increase the number of bounces.
+
+The final room of the dungeon is the boss room containing the final enemy of the dungeon. 
+Upon defeating this enemy the player will have completed the dungeon and will exit back into 
+the overworld. The overworld is also teaming with enemies. However, the overworld will generally 
+have a less hazardous layout and enemies will tend to be weaker. In general, each enemy will 
+have a set of rules. Weaker enemies will be physically smaller than stronger enemies. In addition, 
+each enemy has a quick, basic attack and a slower, large attack which the player can parry and 
+provide a small period where the player can deal extra damage. Upon defeating the enemy, the player 
+will regain health. Currently there are only two dungeons and items that we are planning on implementing 
+and both those and any future dungeon and/or items we add will follow these rules and procedures.
+
 
 \subsection{Sources of Conflict}
 There are a couple of sourses of conflict in this game.  The first one will be the player againsed enemies.  
