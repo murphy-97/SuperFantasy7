@@ -35,6 +35,9 @@ public class Player_Char : MonoBehaviour
     [Range(-1,0)][SerializeField] private float jump_fall_rate; // Used to end jump
     private Rigidbody rb;
     [SerializeField] private bool is_grounded = false;  // Serialized for debugging
+    [SerializeField] private bool on_wall_l = false;  // Serialized for debugging
+    [SerializeField] private bool on_wall_r = false;  // Serialized for debugging
+    [SerializeField] private float wall_jump_dist;
     Vector3 speed_change;
     private bool stop_running;
 
@@ -73,8 +76,35 @@ public class Player_Char : MonoBehaviour
 
         // Interpret player controls
         float ground_dist = gameObject.GetComponent<Collider>().bounds.extents.y;
+        float wall_dist = gameObject.GetComponent<Collider>().bounds.extents.x + wall_jump_dist;
+
         is_grounded = Physics.Raycast(transform.position, Vector3.down, ground_dist);
 
+        // Checks if player is touching wall at body center or at feet
+        on_wall_l = Physics.Raycast(transform.position, Vector3.left, wall_dist);
+        on_wall_l = on_wall_l || Physics.Raycast(
+            transform.position + new Vector3(0.0f, -0.5f * gameObject.GetComponent<Collider>().bounds.extents.y, 0.0f),
+            Vector3.left,
+            wall_dist
+        );
+
+        on_wall_r = Physics.Raycast(transform.position, Vector3.right, wall_dist);
+        on_wall_r = on_wall_r || Physics.Raycast(
+            transform.position + new Vector3(0.0f, -0.5f * gameObject.GetComponent<Collider>().bounds.extents.y, 0.0f),
+            Vector3.right,
+            wall_dist
+        );
+        
+        // Jumping controls
+        if (is_grounded || (on_wall_l && move_r && !move_l) || (on_wall_r && move_l && !move_r)) {
+            // Jumping controls
+            if (move_up && !move_down && rb.velocity.y <= 0.0f) {
+                // Jump
+                speed_change.y = speed_jump - rb.velocity.y;
+            }
+        }
+        
+        // Moving controls
         if (is_grounded) {
             // Player is on the ground
 
@@ -97,12 +127,6 @@ public class Player_Char : MonoBehaviour
                 if (Mathf.Abs(rb.velocity.x) > slow_thresh * speed_run) {
                     speed_change.x = slow_rate * rb.velocity.x;
                 }
-            }
-
-            // Jumping controls
-            if (move_up && !move_down && rb.velocity.y <= 0.0f) {
-                // Jump
-                speed_change.y = speed_jump - rb.velocity.y;
             }
 
         } else {
