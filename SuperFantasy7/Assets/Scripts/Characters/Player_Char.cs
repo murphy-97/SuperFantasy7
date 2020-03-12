@@ -30,6 +30,7 @@ public class Player_Char : MonoBehaviour
 
     // Movement data
     [Header("Movement Data")]
+    [SerializeField] private float speed_max_run;
     [SerializeField] private float speed_run;
     [SerializeField] private float speed_jump;
     [Range(-1,0)][SerializeField] private float jump_fall_rate; // Used to end jump
@@ -111,10 +112,14 @@ public class Player_Char : MonoBehaviour
             // Side-to-side controls
             if (move_l && !move_r) {
                 // Move left
-                speed_change.x = -1.0f * speed_run;
+                if (rb.velocity.x > -1.0f * speed_max_run) {
+                    speed_change.x = -1.0f * speed_run;
+                }
             } else if (move_r && !move_l) {
                 // Move right
-                speed_change.x = speed_run;
+                if (rb.velocity.x < speed_max_run) {
+                    speed_change.x = speed_run;
+                }
             } else if (!move_l && !move_r) {
                 // Stop side-to-side movement
                 // Force slowing down for first bit, then use drag
@@ -142,17 +147,21 @@ public class Player_Char : MonoBehaviour
 
             if (move_l && !move_r) {
                 // Move left
-                if (rb.velocity.x > side_thresh) {
-                    speed_change.x = -0.75f * speed_run;
-                } else {
-                    speed_change.x = speed_run * (-2.0f / (1.0f + Mathf.Abs(rb.velocity.x)));
+                if (rb.velocity.x > -1.0f * speed_max_run) {
+                    if (rb.velocity.x > side_thresh) {
+                        speed_change.x = -0.75f * speed_run;
+                    } else {
+                        speed_change.x = speed_run * (-2.0f / (1.0f + Mathf.Abs(rb.velocity.x)));
+                    }
                 }
             } if (move_r && !move_l) {
                 // Move right
-                if (rb.velocity.x < -1.0f * side_thresh) {
-                    speed_change.x = 0.75f * speed_run;
-                } else {
-                    speed_change.x = speed_run * (2.0f / (1.0f + Mathf.Abs(rb.velocity.x)));
+                if (rb.velocity.x < speed_max_run) {
+                    if (rb.velocity.x < -1.0f * side_thresh) {
+                        speed_change.x = 0.75f * speed_run;
+                    } else {
+                        speed_change.x = speed_run * (2.0f / (1.0f + Mathf.Abs(rb.velocity.x)));
+                    }
                 }
             }
         }
