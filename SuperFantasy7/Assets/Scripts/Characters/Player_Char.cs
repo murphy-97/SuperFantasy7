@@ -12,6 +12,22 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+// Used to track currently equipped item
+enum PC_Item {
+	None = 0,
+	Hook,		    // PC has grappling hook equipped
+	Staff			// PC has staff of blasting equipped
+}
+
+// Used to store grapple hook data
+[System.Serializable]
+public struct Item_Grapple_Hook
+{
+    public float hook_target_range;
+	public float max_spring;
+    public float rate_spring;
+};
+
 public class Player_Char : MonoBehaviour
 {
     /* CLASS ATTRIBUTES (STATIC) */
@@ -20,6 +36,8 @@ public class Player_Char : MonoBehaviour
     private static int health_max;
     private static int attack_basic_damage;    
 
+    private static bool inv_has_grapple_hook = true;
+
     /* CLASS METHODS (STATIC) */
 
     /* OBJECT ATTRIBUTES */
@@ -27,6 +45,10 @@ public class Player_Char : MonoBehaviour
     // Combat data
     [Header("Combat Data")]
     [SerializeField] private int health_current;
+
+    [Header("Inventory Data")]
+    [SerializeField] private PC_Item item_current;
+    [SerializeField] private Item_Grapple_Hook item_grapple_hook;
 
     // Movement data
     [Header("Movement Data")]
@@ -41,6 +63,7 @@ public class Player_Char : MonoBehaviour
     [SerializeField] private float wall_jump_dist;
     Vector3 speed_change;
     private bool stop_running;
+    private bool is_hooked = false;
 
     // Respawn data
     [Header("Respawn Data")]
@@ -75,11 +98,43 @@ public class Player_Char : MonoBehaviour
         bool use_item = Input.GetButtonDown("UseItem");
         bool cycle_item = Input.GetButton("CycleItem");
 
+        // Check for item use
+        if (use_item) {
+            switch (item_current) {
+
+                case PC_Item.Hook:
+
+                    if (is_hooked) {
+                        Grapple_Release();
+                    } else {
+                        // Perform raycast from player to mouse target
+                        RaycastHit hit;
+                        Vector3 sourcePos = gameObject.transform.position;
+                        Vector3 targetPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+                        targetPos.z = sourcePos.z;
+                        Vector3 direction = targetPos - sourcePos;
+                        
+                        if(Physics.Raycast(sourcePos, direction, out hit)) {
+                            // If hit a hook target, then grapple
+                            if (hit.collider.gameObject.tag == "Hook_Target") {
+                                Grapple_Fire(hit.collider.gameObject.GetComponent<Rigidbody>());
+                                Debug.Log("Firing hook at target!");
+                            }
+                        }
+                    }
+
+                    break;
+
+                case PC_Item.Staff:
+                    break;
+            }
+        }
+
         // Interpret player controls
         float ground_dist = gameObject.GetComponent<Collider>().bounds.extents.y;
         float wall_dist = gameObject.GetComponent<Collider>().bounds.extents.x + wall_jump_dist;
 
-        is_grounded = Physics.Raycast(transform.position, Vector3.down, ground_dist);
+        is_grounded = Physics.Raycast(transform.position, Vector3.down, ground_dist) && !is_hooked;
 
         // Checks if player is touching wall at body center or at feet
         on_wall_l = Physics.Raycast(transform.position, Vector3.left, wall_dist);
@@ -138,7 +193,7 @@ public class Player_Char : MonoBehaviour
             // Player is off the ground - use air controls
 
             // Early jump termination
-            if (!move_up && (rb.velocity.y > 0.0f)) {
+            if (!is_hooked && !move_up && (rb.velocity.y > 0.0f)) {
                 speed_change.y = jump_fall_rate * rb.velocity.y;
             }
 
@@ -154,7 +209,7 @@ public class Player_Char : MonoBehaviour
                         speed_change.x = speed_run * (-2.0f / (1.0f + Mathf.Abs(rb.velocity.x)));
                     }
                 }
-            } if (move_r && !move_l) {
+            } else if (move_r && !move_l) {
                 // Move right
                 if (rb.velocity.x < speed_max_run) {
                     if (rb.velocity.x < -1.0f * side_thresh) {
@@ -163,6 +218,19 @@ public class Player_Char : MonoBehaviour
                         speed_change.x = speed_run * (2.0f / (1.0f + Mathf.Abs(rb.velocity.x)));
                     }
                 }
+            }
+
+            // Grapple hook: reel in or let out
+            if (is_hooked) {
+                SpringJoint joint = gameObject.GetComponent<SpringJoint>();
+                if (move_up && !move_down) {
+                    // Reel in (move up the chain)
+                    joint.spring += item_grapple_hook.rate_spring * Time.deltaTime;
+                } else if (move_down && !move_up) {
+                    // Let out (move down the chain)
+                    joint.spring -= item_grapple_hook.rate_spring * Time.deltaTime;
+                }
+                joint.spring = Mathf.Clamp(joint.spring, 0.0f, item_grapple_hook.max_spring);
             }
         }
     }
@@ -176,4 +244,24 @@ public class Player_Char : MonoBehaviour
     }
 
     /* SPECIFIED METHODS */
+
+    // Grapple hook methods
+    public void Grapple_Fire(Rigidbody target) {
+        SpringJoint joint = gameObject.GetComponent<SpringJoint>();
+        joint.autoConfigureConnectedAnchor = false; // Must be false to swing
+        joint.spring = item_grapple_hook.max_spring;
+
+        joint.connectedBody = target;
+        joint.anchor = target.gameObject.transform.position;
+        joint.connectedAnchor = joint.anchor;   // Must be the same fo swing
+
+        is_hooked = true;
+    }
+
+    public void Grapple_Release() {
+        SpringJoint joint = gameObject.GetComponent<SpringJoint>();
+        joint.spring = 0.0f;
+        joint.connectedBody = null;
+        is_hooked = false;
+    }
 }
