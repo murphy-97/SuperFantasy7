@@ -26,6 +26,8 @@ public struct Item_Grapple_Hook
     public float hook_target_range;
 	public float max_spring;
     public float rate_spring;
+    public float damp_spring;
+    public GameObject target;
 };
 
 public class Player_Char : MonoBehaviour
@@ -110,15 +112,15 @@ public class Player_Char : MonoBehaviour
                         // Perform raycast from player to mouse target
                         RaycastHit hit;
                         Vector3 sourcePos = gameObject.transform.position;
-                        Vector3 targetPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+                        Vector3 targetPos = Get_Mouse_World_Position();
                         targetPos.z = sourcePos.z;
                         Vector3 direction = targetPos - sourcePos;
                         
+                        // TO DO: Put finite range on the grappling hook?
                         if(Physics.Raycast(sourcePos, direction, out hit)) {
                             // If hit a hook target, then grapple
                             if (hit.collider.gameObject.tag == "Hook_Target") {
                                 Grapple_Fire(hit.collider.gameObject.GetComponent<Rigidbody>());
-                                Debug.Log("Firing hook at target!");
                             }
                         }
                     }
@@ -241,20 +243,52 @@ public class Player_Char : MonoBehaviour
         // Update velocity
         rb.AddForce(speed_change, ForceMode.VelocityChange);
         speed_change = Vector3.zero;    // Reset speed changes for next update
+
+        // Update grapple hook
+        LineRenderer line = gameObject.GetComponent<LineRenderer>();
+        if (is_hooked) {
+            line.SetPosition(1, item_grapple_hook.target.transform.position - transform.position);
+
+            // Verify that grapple hook still has line of sight to target
+            RaycastHit hit;
+            Vector3 sourcePos = gameObject.transform.position;
+            sourcePos.y -= 0.5f * gameObject.GetComponent<Collider>().bounds.extents.y;
+            Vector3 targetPos = item_grapple_hook.target.transform.position;
+            targetPos.z = sourcePos.z;
+            Vector3 direction = targetPos - sourcePos;
+            
+            if(Physics.Raycast(sourcePos, direction, out hit)) {
+                // If hit a hook target, then grapple
+                if (hit.collider == null || (hit.collider.gameObject.tag != "Hook_Target" && hit.collider.gameObject.tag != "Doesnt_Break_Grapple")) {
+                    Grapple_Release();
+                }
+            }
+        } else {
+            line.SetPosition(1, Vector3.zero);
+        }
     }
 
     /* SPECIFIED METHODS */
+    public Vector3 Get_Mouse_World_Position() {
+        RaycastHit hit;
+        if (Physics.Raycast (Camera.main.ScreenPointToRay(Input.mousePosition), out hit)) {
+            return hit.point;
+        }
+        return Vector3.zero;
+    }
 
     // Grapple hook methods
     public void Grapple_Fire(Rigidbody target) {
-        SpringJoint joint = gameObject.GetComponent<SpringJoint>();
+        SpringJoint joint = gameObject.AddComponent<SpringJoint>();
         joint.autoConfigureConnectedAnchor = false; // Must be false to swing
         joint.spring = item_grapple_hook.max_spring;
 
         joint.connectedBody = target;
         joint.anchor = target.gameObject.transform.position;
         joint.connectedAnchor = joint.anchor;   // Must be the same fo swing
+        joint.damper = item_grapple_hook.damp_spring;
 
+        item_grapple_hook.target = target.gameObject;
         is_hooked = true;
     }
 
@@ -262,6 +296,8 @@ public class Player_Char : MonoBehaviour
         SpringJoint joint = gameObject.GetComponent<SpringJoint>();
         joint.spring = 0.0f;
         joint.connectedBody = null;
+        item_grapple_hook.target = null;
         is_hooked = false;
+        Destroy(joint);
     }
 }

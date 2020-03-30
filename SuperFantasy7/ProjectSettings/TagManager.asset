@@ -5,6 +5,7 @@ TagManager:
   serializedVersion: 2
   tags:
   - Hook_Target
+  - Doesnt_Break_Grapple
   layers:
   - Default
   - TransparentFX
