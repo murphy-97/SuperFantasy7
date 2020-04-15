@@ -223,7 +223,8 @@ public class Player_Char : MonoBehaviour
                 }
             }
 
-            // Grapple hook: reel in or let out
+            // Grapple hook: reel in or let out and update line renderer
+            LineRenderer line = gameObject.GetComponent<LineRenderer>();
             if (is_hooked) {
                 SpringJoint joint = gameObject.GetComponent<SpringJoint>();
                 if (move_up && !move_down) {
@@ -234,6 +235,12 @@ public class Player_Char : MonoBehaviour
                     joint.spring -= item_grapple_hook.rate_spring * Time.deltaTime;
                 }
                 joint.spring = Mathf.Clamp(joint.spring, 0.0f, item_grapple_hook.max_spring);
+
+                // Manage line renderer
+                line.SetPosition(1, item_grapple_hook.target.transform.position - transform.position);
+            } else {
+                // Hide line renderer
+                line.SetPosition(1, Vector3.zero);
             }
         }
     }
@@ -246,10 +253,7 @@ public class Player_Char : MonoBehaviour
         speed_change = Vector3.zero;    // Reset speed changes for next update
 
         // Update grapple hook
-        LineRenderer line = gameObject.GetComponent<LineRenderer>();
         if (is_hooked) {
-            line.SetPosition(1, item_grapple_hook.target.transform.position - transform.position);
-
             // Verify that grapple hook still has line of sight to target
             RaycastHit hit;
             Vector3 sourcePos = gameObject.transform.position;
@@ -264,8 +268,6 @@ public class Player_Char : MonoBehaviour
                     Grapple_Release();
                 }
             }
-        } else {
-            line.SetPosition(1, Vector3.zero);
         }
     }
 
