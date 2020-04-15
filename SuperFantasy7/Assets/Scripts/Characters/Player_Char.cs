@@ -133,6 +133,16 @@ public class Player_Char : MonoBehaviour
         }
 
         // Interpret player controls
+        
+        // Jumping controls (before is grounded for grapple hook swing)
+        if (is_grounded || (on_wall_l && move_r && !move_l) || (on_wall_r && move_l && !move_r)) {
+            // Jumping controls
+            if (move_up && !move_down && rb.velocity.y <= 0.0f) {
+                // Jump
+                speed_change.y = speed_jump - rb.velocity.y;
+            }
+        }
+
         float ground_dist = gameObject.GetComponent<Collider>().bounds.extents.y;
         float wall_dist = gameObject.GetComponent<Collider>().bounds.extents.x + wall_jump_dist;
 
@@ -152,15 +162,6 @@ public class Player_Char : MonoBehaviour
             Vector3.right,
             wall_dist
         );
-        
-        // Jumping controls
-        if (is_grounded || (on_wall_l && move_r && !move_l) || (on_wall_r && move_l && !move_r)) {
-            // Jumping controls
-            if (move_up && !move_down && rb.velocity.y <= 0.0f) {
-                // Jump
-                speed_change.y = speed_jump - rb.velocity.y;
-            }
-        }
         
         // Moving controls
         if (is_grounded) {
@@ -298,6 +299,7 @@ public class Player_Char : MonoBehaviour
         joint.connectedBody = null;
         item_grapple_hook.target = null;
         is_hooked = false;
+        is_grounded = true; // Allows player to fly upward when releasing
         Destroy(joint);
     }
 }

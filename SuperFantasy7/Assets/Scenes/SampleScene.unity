@@ -515,7 +515,7 @@ MonoBehaviour:
   item_current: 1
   item_grapple_hook:
     hook_target_range: 0
-    max_spring: 35
+    max_spring: 25
     rate_spring: 10
     damp_spring: 5
     target: {fileID: 0}
