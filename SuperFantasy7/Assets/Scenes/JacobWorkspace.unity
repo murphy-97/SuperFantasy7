@@ -519,7 +519,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 344472524}
   m_LocalRotation: {x: 0.5, y: -0.5, z: 0.5, w: 0.5}
-  m_LocalPosition: {x: -15, y: 16.5, z: -5}
+  m_LocalPosition: {x: -14.5, y: 16.5, z: -5}
   m_LocalScale: {x: 13, y: 2, z: 9}
   m_Children: []
   m_Father: {fileID: 1135185013}
@@ -969,7 +969,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 516826645}
   m_LocalRotation: {x: 0.5, y: -0.5, z: 0.5, w: 0.5}
-  m_LocalPosition: {x: 15, y: 2.5, z: -5}
+  m_LocalPosition: {x: 14.5, y: 2.5, z: -5}
   m_LocalScale: {x: 13, y: 2, z: 9}
   m_Children: []
   m_Father: {fileID: 8873181}
@@ -1154,7 +1154,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 690206008}
   m_LocalRotation: {x: 0.5, y: -0.5, z: 0.5, w: 0.5}
-  m_LocalPosition: {x: -15, y: 2.5, z: -5}
+  m_LocalPosition: {x: -14.5, y: 2.5, z: -5}
   m_LocalScale: {x: 13, y: 2, z: 9}
   m_Children: []
   m_Father: {fileID: 1135185013}
@@ -1699,7 +1699,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 922897335}
   m_LocalRotation: {x: 0.5, y: -0.5, z: 0.5, w: 0.5}
-  m_LocalPosition: {x: 15, y: 9.5, z: -5}
+  m_LocalPosition: {x: 14.5, y: 9.5, z: -5}
   m_LocalScale: {x: 12, y: 2, z: 5.5}
   m_Children: []
   m_Father: {fileID: 8873181}
@@ -2424,7 +2424,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1544827293}
   m_LocalRotation: {x: 0.5, y: -0.5, z: 0.5, w: 0.5}
-  m_LocalPosition: {x: 15, y: 16.5, z: -5}
+  m_LocalPosition: {x: 14.5, y: 16.5, z: -5}
   m_LocalScale: {x: 13, y: 2, z: 9}
   m_Children: []
   m_Father: {fileID: 8873181}
@@ -2702,7 +2702,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1682272173}
   m_LocalRotation: {x: 0.5, y: -0.5, z: 0.5, w: 0.5}
-  m_LocalPosition: {x: -15, y: 9.5, z: -5}
+  m_LocalPosition: {x: -14.5, y: 9.5, z: -5}
   m_LocalScale: {x: 12, y: 2, z: 5.5}
   m_Children: []
   m_Father: {fileID: 1135185013}
@@ -3183,7 +3183,7 @@ Transform:
   m_GameObject: {fileID: 2059110644}
   m_LocalRotation: {x: -0, y: -0.7071068, z: 0.7071068, w: 0}
   m_LocalPosition: {x: 0, y: 9.5, z: -3}
-  m_LocalScale: {x: 3.2, y: 2.1, z: 2.3}
+  m_LocalScale: {x: 3.1, y: 2.1, z: 2.3}
   m_Children: []
   m_Father: {fileID: 1073479946}
   m_RootOrder: 0
