@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Hook_Target
   - Doesnt_Break_Grapple
+  - Breakable_Wall
   layers:
   - Default
   - TransparentFX
