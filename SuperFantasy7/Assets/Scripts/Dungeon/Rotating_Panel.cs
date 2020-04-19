@@ -43,6 +43,11 @@ public class Rotating_Panel : MonoBehaviour
             } else {
                 // Wait at this angle until timer expires
                 wait_timer -= Time.deltaTime;
+                gameObject.transform.eulerAngles = new Vector3(
+                    gameObject.transform.eulerAngles.x,
+                    gameObject.transform.eulerAngles.y,
+                    angle_target
+                );
             }
 
         } else {
