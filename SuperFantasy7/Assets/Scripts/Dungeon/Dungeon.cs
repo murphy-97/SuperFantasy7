@@ -52,6 +52,7 @@ public class Dungeon : MonoBehaviour
         // Initiailze dungeon
         building_screen.gameObject.SetActive(true);
         entry_room = Room.GetFirstRoom(this, entry_prefab);
+        entry_room.transform.SetParent(transform);
 
         room_dict = new Dictionary<Tuple<int, int>, Room>();
         room_dict.Add(entry_room.GetPositionTuple(), entry_room);
@@ -61,6 +62,7 @@ public class Dungeon : MonoBehaviour
             prefabs[UnityEngine.Random.Range(0, prefabs.Length)],
             Compass.West
         );
+        next.transform.SetParent(transform);
         room_dict.Add(next.GetPositionTuple(), next);
 
         room_count -= 2;    // Account for entry and first neighbor
@@ -115,6 +117,7 @@ public class Dungeon : MonoBehaviour
                                 prefabs[UnityEngine.Random.Range(0, prefabs.Length)],
                                 dirs[i]
                             );
+                            new_room.transform.SetParent(transform);
                             room_count -= 1;
                             room_dict.Add(new_room.GetPositionTuple(), new_room);
                             build_stack.Push(new_room);
