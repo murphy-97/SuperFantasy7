@@ -166,7 +166,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   pivot: {fileID: 31210235}
   camera: {fileID: 963194227}
+  track_pivot: 0
   player_char: {fileID: 427461930}
+  tracking_distance: {x: 0, y: 0}
+  panning_speed: 0
+  panning_precision: 0
 --- !u!1 &427461926
 GameObject:
   m_ObjectHideFlags: 0
