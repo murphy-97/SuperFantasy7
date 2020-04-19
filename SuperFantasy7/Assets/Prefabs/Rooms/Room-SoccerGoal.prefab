@@ -576,10 +576,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 892e60aa5474b1e4e964b7162e40a426, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  door_n: {fileID: 0}
-  door_s: {fileID: 0}
-  door_e: {fileID: 0}
-  door_w: {fileID: 0}
+  door_n: {fileID: 6342053184045884487}
+  door_s: {fileID: 6342053184068188344}
+  door_e: {fileID: 6342053182830164069}
+  door_w: {fileID: 6342053183843111651}
+  dungeon: {fileID: 0}
 --- !u!1001 &2361290264263657095
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -649,9 +650,33 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9c7f435f731a3c447a6eaa46c09199d8, type: 3}
+--- !u!1 &6342053184045884487 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8703069085630898880, guid: 9c7f435f731a3c447a6eaa46c09199d8,
+    type: 3}
+  m_PrefabInstance: {fileID: 2361290264263657095}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &6342053182302600465 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8703069083887614870, guid: 9c7f435f731a3c447a6eaa46c09199d8,
+    type: 3}
+  m_PrefabInstance: {fileID: 2361290264263657095}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &6342053182830164069 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8703069084414918370, guid: 9c7f435f731a3c447a6eaa46c09199d8,
+    type: 3}
+  m_PrefabInstance: {fileID: 2361290264263657095}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &6342053183843111651 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8703069085562082404, guid: 9c7f435f731a3c447a6eaa46c09199d8,
+    type: 3}
+  m_PrefabInstance: {fileID: 2361290264263657095}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &6342053184068188344 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8703069085652680255, guid: 9c7f435f731a3c447a6eaa46c09199d8,
     type: 3}
   m_PrefabInstance: {fileID: 2361290264263657095}
   m_PrefabAsset: {fileID: 0}
