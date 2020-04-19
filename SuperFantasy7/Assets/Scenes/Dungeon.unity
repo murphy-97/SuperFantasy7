@@ -146,7 +146,7 @@ Transform:
   m_GameObject: {fileID: 31210234}
   m_LocalRotation: {x: 0.06975647, y: 0, z: 0, w: 0.9975641}
   m_LocalPosition: {x: 0, y: 8.5, z: 3.35}
-  m_LocalScale: {x: 1, y: 0.9999999, z: 0.9999999}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 963194228}
   m_Father: {fileID: 0}
@@ -159,14 +159,18 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 31210234}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5cdf1eeec761d1040819fb983646a53d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   pivot: {fileID: 31210235}
   camera: {fileID: 963194227}
+  track_pivot: 0
   player_char: {fileID: 427461930}
+  tracking_distance: {x: 15.5, y: 11.5}
+  panning_speed: 40
+  panning_precision: 1
 --- !u!1 &427461926
 GameObject:
   m_ObjectHideFlags: 0
@@ -279,7 +283,7 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 112
+  m_Constraints: 120
   m_CollisionDetection: 0
 --- !u!114 &427461932
 MonoBehaviour:
@@ -804,7 +808,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b88d14dcfe391b64c9fc28767c34b240, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  room_count: 0
+  room_count: 20
   room_spacing: {x: 31, y: 23}
   entry_prefab: {fileID: 1253198437819433274, guid: cb471881660803a429e1b836ef8597ae,
     type: 3}
@@ -818,6 +822,11 @@ MonoBehaviour:
   - {fileID: 6590402873179087783, guid: 632d1aa605d7042439c91b2b791cb1d6, type: 3}
   - {fileID: 1554765541612568869, guid: dd25bed70275cd3458bbe84be5298712, type: 3}
   building_screen: {fileID: 2111698958}
+  add_neighbor_chance:
+  - 1
+  - 0.75
+  - 0.1
+  - 0
 --- !u!4 &1240827620
 Transform:
   m_ObjectHideFlags: 0

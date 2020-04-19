@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 // NOTE: public enum Compass declared in Dungeon.cs
 
@@ -54,9 +55,42 @@ public class Room : MonoBehaviour
     private Vector2 position;
 
     // Object methods
-    public Vector2 GetPosition()
+    public Vector2 GetPositionVector()
     {
         return position;
+    }
+
+    public Tuple<int, int> GetPositionTuple()
+    {
+        return Tuple.Create((int)position.x, (int)position.y);
+    }
+
+    public Tuple<int, int> GetNeighborTuple(Compass direction)
+    {
+        Vector2 pos_mod = Vector2.zero;
+
+        switch (direction) {
+            case Compass.North:
+                pos_mod.y = 1;
+                break;
+
+            case Compass.South:
+                pos_mod.y = -1;
+                break;
+                
+            case Compass.East:
+                pos_mod.x = 1;
+                break;
+                
+            case Compass.West:
+                pos_mod.x = -1;
+                break;
+        }
+
+        return Tuple.Create(
+            (int)(position.x + pos_mod.x),
+            (int)(position.y + pos_mod.y)
+        );
     }
 
     public Vector2 AddNeighbor(Room neighbor, Compass direction)
@@ -189,5 +223,25 @@ public class Room : MonoBehaviour
         }
 
         return false;
+    }
+
+    public int NeighborCount()
+    {
+        int neighbors = 0;
+
+        if (neighbor_n != null) {
+            neighbors += 1;
+        }
+        if (neighbor_s != null) {
+            neighbors += 1;
+        }
+        if (neighbor_e != null) {
+            neighbors += 1;
+        }
+        if (neighbor_w != null) {
+            neighbors += 1;
+        }
+
+        return neighbors;
     }
 }
