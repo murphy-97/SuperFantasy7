@@ -305,6 +305,11 @@ MonoBehaviour:
     rate_spring: 10
     damp_spring: 5
     target: {fileID: 0}
+  item_blasting_staff:
+    proj: {fileID: -3980452441545130528, guid: 2b567299564d8e348bffdbd910918886, type: 3}
+    fire_delay: 1
+    fire_timer: -1
+    velocity: 20
   speed_max_run: 15
   speed_run: 1
   speed_jump: 25
@@ -314,7 +319,6 @@ MonoBehaviour:
   on_wall_r: 0
   wall_jump_dist: 0.15
   respawn_timer: 0
-  respawn_loc: {fileID: 0}
 --- !u!96 &427461933
 TrailRenderer:
   serializedVersion: 2
