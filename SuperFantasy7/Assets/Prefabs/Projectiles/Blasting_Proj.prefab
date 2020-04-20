@@ -239,4 +239,4 @@ MonoBehaviour:
   rubble_radius: 0.75
   rubble_count: 25
   rubble_z_range: {x: -1, y: 1}
-  post_hit_coll_delay: 0.15
+  post_hit_coll_delay: 0.1

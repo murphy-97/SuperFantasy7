@@ -62,6 +62,8 @@ public class Player_Char : MonoBehaviour
     [SerializeField] private PC_Item item_current;
     [SerializeField] private Item_Grapple_Hook item_grapple_hook;
     [SerializeField] private Item_Blasting_Staff item_blasting_staff;
+    [SerializeField] private float switch_delay;
+    private float switch_timer = -1.0f;
 
     // Movement data
     [Header("Movement Data")]
@@ -110,11 +112,14 @@ public class Player_Char : MonoBehaviour
 
         bool basic_attack = Input.GetButtonDown("BasicAttack");
         bool use_item = Input.GetButtonDown("UseItem");
-        bool cycle_item = Input.GetButton("CycleItem");
+        bool cycle_item = Input.GetButton("CycleItem") && (switch_timer < 0.0f);
 
-        // Manage staff cooldown
+        // Manage timers
         if (item_blasting_staff.fire_timer >= 0.0f) {
             item_blasting_staff.fire_timer -= Time.deltaTime;
+        }
+        if (switch_timer >= 0.0f) {
+            switch_timer -= Time.deltaTime;
         }
 
         // Check for item use
@@ -166,17 +171,12 @@ public class Player_Char : MonoBehaviour
                         float pl_ext_y = gameObject.GetComponent<Collider>().bounds.extents.y;
                         float pr_ext_x = proj.gameObject.GetComponent<Collider>().bounds.extents.x;
                         float pr_ext_y = proj.gameObject.GetComponent<Collider>().bounds.extents.y;
+                        float spawn_rad = Mathf.Max(pl_ext_x, pl_ext_y) + Mathf.Max(pr_ext_x, pr_ext_y);
 
-                        Vector2 offset = Vector2.zero;
-                        if (speed.x < 0.0f) {
-                            offset.x = -1.0f * (pl_ext_x + pr_ext_x);
-                        } else if (speed.x > 0.0f) {
-                            offset.x = 1.0f * (pl_ext_x + pr_ext_x);
-                        } else if (speed.y < 0.0f) {
-                            offset.y = -1.0f * (pl_ext_y + pr_ext_y);
-                        } else {
-                            offset.y = 1.0f * (pl_ext_y + pr_ext_y);
-                        }
+                        Vector2 offset = new Vector2(
+                            spawn_rad * Mathf.Cos(angle),
+                            spawn_rad * Mathf.Sin(angle)
+                        );
 
                         proj.transform.position = new Vector3(
                             transform.position.x + offset.x,
@@ -198,16 +198,22 @@ public class Player_Char : MonoBehaviour
                     if (inv_has_grapple_hook) {
                         Debug.Log("Switching to Grappling Hook...");
                         item_current = PC_Item.Hook;
+                        switch_timer = switch_delay;
                     } else if (inv_has_blast_staff) {
                         Debug.Log("Switching to Staff of Blasting...");
                         item_current = PC_Item.Staff;
+                        switch_timer = switch_delay;
                     }
                     break;
 
                 case PC_Item.Hook:
                     if (inv_has_blast_staff) {
+                        if (is_hooked) {
+                            Grapple_Release();
+                        }
                         Debug.Log("Switching to Staff of Blasting...");
                         item_current = PC_Item.Staff;
+                        switch_timer = switch_delay;
                     }
                     break;
 
@@ -215,6 +221,7 @@ public class Player_Char : MonoBehaviour
                     if (inv_has_grapple_hook) {
                         Debug.Log("Switching to Grappling Hook...");
                         item_current = PC_Item.Hook;
+                        switch_timer = switch_delay;
                     }
                     break;
             }
