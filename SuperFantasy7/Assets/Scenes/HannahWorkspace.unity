@@ -310,6 +310,7 @@ MonoBehaviour:
     fire_delay: 1
     fire_timer: -1
     velocity: 20
+  switch_delay: 0
   speed_max_run: 15
   speed_run: 1
   speed_jump: 25
@@ -923,7 +924,7 @@ PrefabInstance:
     - target: {fileID: 1513718171333866524, guid: 1b99f4c064a4bed41ae091fab5204a75,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -250
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1513718171333866524, guid: 1b99f4c064a4bed41ae091fab5204a75,
         type: 3}
@@ -997,7 +998,7 @@ PrefabInstance:
     - target: {fileID: 2801777053590328387, guid: b0755dcbfe3b1924cac7d4e36872ea62,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: -250
       objectReference: {fileID: 0}
     - target: {fileID: 2801777053590328387, guid: b0755dcbfe3b1924cac7d4e36872ea62,
         type: 3}

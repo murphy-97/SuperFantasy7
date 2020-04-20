@@ -47,8 +47,8 @@ public class Player_Char : MonoBehaviour
     private static int health_max;
     private static int attack_basic_damage;    
 
-    private static bool inv_has_grapple_hook = true;
-    private static bool inv_has_blast_staff = true;
+    private static bool inv_has_grapple_hook = false;
+    private static bool inv_has_blast_staff = false;
 
     /* CLASS METHODS (STATIC) */
 
@@ -192,39 +192,7 @@ public class Player_Char : MonoBehaviour
                     break;
             }
         } else if (cycle_item && !use_item) {
-            switch (item_current) {
-                
-                case PC_Item.None:
-                    if (inv_has_grapple_hook) {
-                        Debug.Log("Switching to Grappling Hook...");
-                        item_current = PC_Item.Hook;
-                        switch_timer = switch_delay;
-                    } else if (inv_has_blast_staff) {
-                        Debug.Log("Switching to Staff of Blasting...");
-                        item_current = PC_Item.Staff;
-                        switch_timer = switch_delay;
-                    }
-                    break;
-
-                case PC_Item.Hook:
-                    if (inv_has_blast_staff) {
-                        if (is_hooked) {
-                            Grapple_Release();
-                        }
-                        Debug.Log("Switching to Staff of Blasting...");
-                        item_current = PC_Item.Staff;
-                        switch_timer = switch_delay;
-                    }
-                    break;
-
-                case PC_Item.Staff:
-                    if (inv_has_grapple_hook) {
-                        Debug.Log("Switching to Grappling Hook...");
-                        item_current = PC_Item.Hook;
-                        switch_timer = switch_delay;
-                    }
-                    break;
-            }
+            Cycle_Item();
         }
 
         // Interpret player controls
@@ -340,6 +308,24 @@ public class Player_Char : MonoBehaviour
         }
     }
 
+    void OnTriggerEnter(Collider other) {
+
+         if (other.tag == "Pickup_Grapple") {
+
+             Debug.Log("Picked up Grapple Hook");
+             inv_has_grapple_hook = true;
+             Cycle_Item();
+             Destroy(other.gameObject);
+
+         } else if (other.tag == "Pickup_Staff") {
+
+             Debug.Log("Picked up Staff of Blasting");
+             inv_has_blast_staff = true;
+             Cycle_Item();
+             Destroy(other.gameObject);
+         }
+     }
+
     // Used by the physics system
     void FixedUpdate()
     {
@@ -398,5 +384,41 @@ public class Player_Char : MonoBehaviour
         is_hooked = false;
         is_grounded = true; // Allows player to fly upward when releasing
         Destroy(joint);
+    }
+
+    public void Cycle_Item() {
+        switch (item_current) {
+            
+            case PC_Item.None:
+                if (inv_has_grapple_hook) {
+                    Debug.Log("Switching to Grappling Hook...");
+                    item_current = PC_Item.Hook;
+                    switch_timer = switch_delay;
+                } else if (inv_has_blast_staff) {
+                    Debug.Log("Switching to Staff of Blasting...");
+                    item_current = PC_Item.Staff;
+                    switch_timer = switch_delay;
+                }
+                break;
+
+            case PC_Item.Hook:
+                if (inv_has_blast_staff) {
+                    if (is_hooked) {
+                        Grapple_Release();
+                    }
+                    Debug.Log("Switching to Staff of Blasting...");
+                    item_current = PC_Item.Staff;
+                    switch_timer = switch_delay;
+                }
+                break;
+
+            case PC_Item.Staff:
+                if (inv_has_grapple_hook) {
+                    Debug.Log("Switching to Grappling Hook...");
+                    item_current = PC_Item.Hook;
+                    switch_timer = switch_delay;
+                }
+                break;
+        }
     }
 }

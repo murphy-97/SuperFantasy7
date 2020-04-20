@@ -7,6 +7,8 @@ TagManager:
   - Hook_Target
   - Doesnt_Break_Grapple
   - Breakable_Wall
+  - Pickup_Grapple
+  - Pickup_Staff
   layers:
   - Default
   - TransparentFX

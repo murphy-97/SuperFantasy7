@@ -298,7 +298,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   health_current: 0
-  item_current: 1
+  item_current: 0
   item_grapple_hook:
     hook_target_range: 0
     max_spring: 25
@@ -839,6 +839,9 @@ MonoBehaviour:
   - {fileID: 8506150899361346311, guid: 37f68b21846e9684d9bc95d3e74f4726, type: 3}
   - {fileID: 1955852601735703839, guid: 550cf8493247b1b4284441589089c64f, type: 3}
   - {fileID: 760669923217468089, guid: f188c78cd460b1a43b8e4abd7b1592d9, type: 3}
+  si_prefabs:
+  - {fileID: 1513718171333866527, guid: 1b99f4c064a4bed41ae091fab5204a75, type: 3}
+  - {fileID: 6183215612491549939, guid: bc07f0864a531bf4791dc4511c308b8b, type: 3}
   building_screen: {fileID: 2111698958}
   add_neighbor_chance:
   - 1

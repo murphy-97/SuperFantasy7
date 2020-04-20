@@ -39,6 +39,7 @@ public class Dungeon : MonoBehaviour
     [SerializeField] private Vector2 room_spacing;
     [SerializeField] private Room entry_prefab;
     [SerializeField] private Room[] prefabs;
+    [SerializeField] private Room[] si_prefabs;
     [SerializeField] private GameObject building_screen;
 
     [SerializeField][Range(0,1)] private float[] add_neighbor_chance;
@@ -68,8 +69,10 @@ public class Dungeon : MonoBehaviour
         room_count -= 2;    // Account for entry and first neighbor
 
         // Iteratively generate rooms
+        Stack<Room> si_stack = new Stack<Room>(); // Used when placing special item rooms
         Stack<Room> build_stack = new Stack<Room>();
         build_stack.Push(next);
+        si_stack.Push(next);
         Stack<Room> save_stack = new Stack<Room>();
 
         while (room_count > 0) {
@@ -121,6 +124,7 @@ public class Dungeon : MonoBehaviour
                             room_count -= 1;
                             room_dict.Add(new_room.GetPositionTuple(), new_room);
                             build_stack.Push(new_room);
+                            si_stack.Push(new_room);
                         }
                     }
                 }
@@ -130,6 +134,66 @@ public class Dungeon : MonoBehaviour
                 // Rebuild build stack to finish building dungeon
                 build_stack.Push(save_stack.Pop());
             }
+        }
+
+        // Place special item rooms next to rooms with fewest rooms
+        // Create priority stack for rooms to neighbor special item rooms
+        float counter = 0.0f;
+        float counter_max = (float)si_stack.Count;
+        SortedList<float, Room> priority = new SortedList<float, Room>();
+        while (si_stack.Count > 0) {
+            next = si_stack.Pop();
+            if (next == entry_room) {
+                continue;
+            }
+
+            float key = 0.0f;
+
+            List<Compass> dirs = new List<Compass> {
+                Compass.North, Compass.South, Compass.East, Compass.West
+            };
+
+            for (int i = 0; i < dirs.Count; i++) {
+                if (room_dict.ContainsKey(next.GetNeighborTuple(dirs[i]))) {
+                    key += 1.0f;
+                }
+            }
+
+            key += counter / counter_max;   // Enforce unique keys for each room
+            counter += 1.0f;
+
+            if (key < 4.0f) {
+                priority.Add(key, next);
+            }
+        }
+
+        Debug.Assert(si_prefabs.Length <= priority.Count);
+        for (int i = 0; i < si_prefabs.Length; i++) {
+            next = priority[priority.Keys[i]];
+
+            // Add special item room as neighbor at random available direction
+            List<Compass> dirs = new List<Compass> {
+                Compass.North, Compass.South, Compass.East, Compass.West
+            };
+
+            for (int j = 0; j < dirs.Count; j++) {
+                Compass temp = dirs[j];
+                int randomIndex = UnityEngine.Random.Range(j, dirs.Count);
+                dirs[j] = dirs[randomIndex];
+                dirs[randomIndex] = temp;
+            }
+
+            bool assigned = false;
+            for (int j = 0; j < dirs.Count; j++) {
+                if (!room_dict.ContainsKey(next.GetNeighborTuple(dirs[j]))) {
+                    // Found suitable location
+                    Room si_room = next.MakeNeighbor(si_prefabs[i], dirs[j]);
+                    assigned = true;
+                    room_dict.Add(si_room.GetPositionTuple(), si_room);
+                    break;
+                }
+            }
+            Debug.Assert(assigned);
         }
 
         // Finalize creation of dungeon
