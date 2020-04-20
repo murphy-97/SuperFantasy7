@@ -17,6 +17,15 @@ public class Blast_Proj : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        // Manage collider
+        if (post_hit_timer >= 0.0f) {
+            post_hit_timer -= Time.deltaTime;
+            if (post_hit_timer < 0.0f) {
+                gameObject.GetComponent<Collider>().enabled = true;
+            }
+        }
+
+        // Manage lifetime
         if (lifetime >= 0.0f) {
             lifetime -= Time.deltaTime;
         } else if (fade_time >= 0.0f) {
@@ -34,6 +43,10 @@ public class Blast_Proj : MonoBehaviour
     void OnCollisionEnter (Collision col)
     {
         if (col.gameObject.tag == "Breakable_Wall") {
+            // Disable collider from interacting with rubble
+            gameObject.GetComponent<Collider>().enabled = false;
+            post_hit_timer = post_hit_coll_delay;
+
             // Spawn rubble evenly distributed within radius
             for (int i = 0; i < rubble_count; i++) {
 
@@ -65,6 +78,8 @@ public class Blast_Proj : MonoBehaviour
     [SerializeField] private float rubble_radius;
     [SerializeField] private int rubble_count;
     [SerializeField] private Vector2 rubble_z_range;
+    [SerializeField] private float post_hit_coll_delay;
+    private float post_hit_timer = -1.0f;
 
     // Object methods
 }

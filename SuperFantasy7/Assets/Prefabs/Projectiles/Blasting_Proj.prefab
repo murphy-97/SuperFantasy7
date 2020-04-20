@@ -236,6 +236,7 @@ MonoBehaviour:
   fade_time: 0.5
   rubble_object: {fileID: 170357278733150219, guid: 890f88299cc933540a0d4c8030698ee2,
     type: 3}
-  rubble_radius: 1
+  rubble_radius: 0.75
   rubble_count: 25
   rubble_z_range: {x: -1, y: 1}
+  post_hit_coll_delay: 0.15
