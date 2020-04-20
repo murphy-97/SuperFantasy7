@@ -821,6 +821,19 @@ MonoBehaviour:
   - {fileID: 8483369879779341293, guid: 6929ca9ce15caef4db4513fbf8568340, type: 3}
   - {fileID: 6590402873179087783, guid: 632d1aa605d7042439c91b2b791cb1d6, type: 3}
   - {fileID: 1554765541612568869, guid: dd25bed70275cd3458bbe84be5298712, type: 3}
+  - {fileID: 8382310520618911612, guid: a10577e7b5dbc794ebc1452fa8f326ad, type: 3}
+  - {fileID: 3739299173865188173, guid: f458959291c3d2a4a99a91133ce35ad5, type: 3}
+  - {fileID: 5393844037438877415, guid: e8e7d1efde079be42b79e745c0e4705c, type: 3}
+  - {fileID: 919004134235626203, guid: 55a823925950742479ea9675407355e2, type: 3}
+  - {fileID: 7398396122463838291, guid: 7ad8282a6b9a26b4ca609f367ef894e4, type: 3}
+  - {fileID: 7955666943116933363, guid: deab784335f4f6540bccc62efd82af14, type: 3}
+  - {fileID: 4862744172829386123, guid: ebbcab3883fc97841b69b3e1019200ab, type: 3}
+  - {fileID: 2757020371700500757, guid: 0678c3577390cab4eb2f564c79e5e36b, type: 3}
+  - {fileID: 3779685541732690511, guid: 4e31be9fdc2602247a151ed7715b43f1, type: 3}
+  - {fileID: 5177427354149728457, guid: 630f8786a8cc2054b8df74c750dee8d6, type: 3}
+  - {fileID: 8506150899361346311, guid: 37f68b21846e9684d9bc95d3e74f4726, type: 3}
+  - {fileID: 1955852601735703839, guid: 550cf8493247b1b4284441589089c64f, type: 3}
+  - {fileID: 760669923217468089, guid: f188c78cd460b1a43b8e4abd7b1592d9, type: 3}
   building_screen: {fileID: 2111698958}
   add_neighbor_chance:
   - 1
@@ -1018,7 +1031,7 @@ GameObject:
   - component: {fileID: 2111698961}
   - component: {fileID: 2111698960}
   m_Layer: 5
-  m_Name: Panel
+  m_Name: Loading_Screen
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
