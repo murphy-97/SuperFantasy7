@@ -30,6 +30,15 @@ public struct Item_Grapple_Hook
     public GameObject target;
 };
 
+[System.Serializable]
+public struct Item_Blasting_Staff
+{
+    public Blast_Proj proj;
+    public float fire_delay;
+    public float fire_timer;    // Must be set to < 0 initially
+    public float velocity;
+};
+
 public class Player_Char : MonoBehaviour
 {
     /* CLASS ATTRIBUTES (STATIC) */
@@ -39,6 +48,7 @@ public class Player_Char : MonoBehaviour
     private static int attack_basic_damage;    
 
     private static bool inv_has_grapple_hook = true;
+    private static bool inv_has_blast_staff = true;
 
     /* CLASS METHODS (STATIC) */
 
@@ -51,6 +61,7 @@ public class Player_Char : MonoBehaviour
     [Header("Inventory Data")]
     [SerializeField] private PC_Item item_current;
     [SerializeField] private Item_Grapple_Hook item_grapple_hook;
+    [SerializeField] private Item_Blasting_Staff item_blasting_staff;
 
     // Movement data
     [Header("Movement Data")]
@@ -70,7 +81,7 @@ public class Player_Char : MonoBehaviour
     // Respawn data
     [Header("Respawn Data")]
     [SerializeField] private float respawn_timer;
-    [SerializeField] private Transform respawn_loc;
+    private Vector3 respawn_loc;
     private bool dead = false;
 
     /* UNITY BUILT-IN METHODS */
@@ -78,6 +89,7 @@ public class Player_Char : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        respawn_loc = transform.position;
         rb = gameObject.GetComponent<Rigidbody>();
     }
 
@@ -100,8 +112,13 @@ public class Player_Char : MonoBehaviour
         bool use_item = Input.GetButtonDown("UseItem");
         bool cycle_item = Input.GetButton("CycleItem");
 
+        // Manage staff cooldown
+        if (item_blasting_staff.fire_timer >= 0.0f) {
+            item_blasting_staff.fire_timer -= Time.deltaTime;
+        }
+
         // Check for item use
-        if (use_item) {
+        if (use_item && !cycle_item) {
             switch (item_current) {
 
                 case PC_Item.Hook:
@@ -128,6 +145,77 @@ public class Player_Char : MonoBehaviour
                     break;
 
                 case PC_Item.Staff:
+
+                    if (item_blasting_staff.fire_timer < 0.0f) {
+                        // Fire staff of blasting
+                        Vector3 sourcePos = gameObject.transform.position;
+                        Vector3 targetPos = Get_Mouse_World_Position();
+                        targetPos.z = sourcePos.z;
+                        Vector3 direction = targetPos - sourcePos;
+
+                        float angle = Mathf.Atan2(direction.y, direction.x);
+                        Vector3 speed = new Vector3(
+                            item_blasting_staff.velocity * Mathf.Cos(angle),
+                            item_blasting_staff.velocity * Mathf.Sin(angle),
+                            0.0f
+                        );
+
+                        Blast_Proj proj = Instantiate(item_blasting_staff.proj);
+
+                        float pl_ext_x = gameObject.GetComponent<Collider>().bounds.extents.x;
+                        float pl_ext_y = gameObject.GetComponent<Collider>().bounds.extents.y;
+                        float pr_ext_x = proj.gameObject.GetComponent<Collider>().bounds.extents.x;
+                        float pr_ext_y = proj.gameObject.GetComponent<Collider>().bounds.extents.y;
+
+                        Vector2 offset = Vector2.zero;
+                        if (speed.x < 0.0f) {
+                            offset.x = -1.0f * (pl_ext_x + pr_ext_x);
+                        } else if (speed.x > 0.0f) {
+                            offset.x = 1.0f * (pl_ext_x + pr_ext_x);
+                        } else if (speed.y < 0.0f) {
+                            offset.y = -1.0f * (pl_ext_y + pr_ext_y);
+                        } else {
+                            offset.y = 1.0f * (pl_ext_y + pr_ext_y);
+                        }
+
+                        proj.transform.position = new Vector3(
+                            transform.position.x + offset.x,
+                            transform.position.y + offset.y,
+                            transform.position.z
+                        );
+                        proj.gameObject.GetComponent<Rigidbody>().AddForce(
+                            speed,
+                            ForceMode.VelocityChange
+                        );
+                    }
+
+                    break;
+            }
+        } else if (cycle_item && !use_item) {
+            switch (item_current) {
+                
+                case PC_Item.None:
+                    if (inv_has_grapple_hook) {
+                        Debug.Log("Switching to Grappling Hook...");
+                        item_current = PC_Item.Hook;
+                    } else if (inv_has_blast_staff) {
+                        Debug.Log("Switching to Staff of Blasting...");
+                        item_current = PC_Item.Staff;
+                    }
+                    break;
+
+                case PC_Item.Hook:
+                    if (inv_has_blast_staff) {
+                        Debug.Log("Switching to Staff of Blasting...");
+                        item_current = PC_Item.Staff;
+                    }
+                    break;
+
+                case PC_Item.Staff:
+                    if (inv_has_grapple_hook) {
+                        Debug.Log("Switching to Grappling Hook...");
+                        item_current = PC_Item.Hook;
+                    }
                     break;
             }
         }

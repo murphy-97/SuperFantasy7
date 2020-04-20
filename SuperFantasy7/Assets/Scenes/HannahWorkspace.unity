@@ -190,7 +190,7 @@ GameObject:
   - component: {fileID: 427461935}
   m_Layer: 0
   m_Name: Player
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -298,13 +298,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   health_current: 0
-  item_current: 1
+  item_current: 2
   item_grapple_hook:
     hook_target_range: 0
     max_spring: 25
     rate_spring: 10
     damp_spring: 5
     target: {fileID: 0}
+  item_blasting_staff:
+    proj: {fileID: -3980452441545130528, guid: 2b567299564d8e348bffdbd910918886, type: 3}
+    fire_delay: 1
+    fire_timer: -1
+    velocity: 20
   speed_max_run: 15
   speed_run: 1
   speed_jump: 25
@@ -314,7 +319,6 @@ MonoBehaviour:
   on_wall_r: 0
   wall_jump_dist: 0.15
   respawn_timer: 0
-  respawn_loc: {fileID: 0}
 --- !u!96 &427461933
 TrailRenderer:
   serializedVersion: 2
@@ -993,7 +997,7 @@ PrefabInstance:
     - target: {fileID: 2801777053590328387, guid: b0755dcbfe3b1924cac7d4e36872ea62,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 200
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2801777053590328387, guid: b0755dcbfe3b1924cac7d4e36872ea62,
         type: 3}
@@ -1057,7 +1061,7 @@ PrefabInstance:
     - target: {fileID: 6183215612491549936, guid: bc07f0864a531bf4791dc4511c308b8b,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: 200
       objectReference: {fileID: 0}
     - target: {fileID: 6183215612491549936, guid: bc07f0864a531bf4791dc4511c308b8b,
         type: 3}
