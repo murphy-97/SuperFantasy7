@@ -33,9 +33,26 @@ public class Blast_Proj : MonoBehaviour
 
     void OnCollisionEnter (Collision col)
     {
-        Debug.Log("Collided with " + col.gameObject.tag);
         if (col.gameObject.tag == "Breakable_Wall") {
-            // Spawn rubble
+            // Spawn rubble evenly distributed within radius
+            for (int i = 0; i < rubble_count; i++) {
+
+                float u = Random.value + Random.value;
+                float r = rubble_radius * (u > 1.0f ? 2.0f - u : u);
+                float a = Random.value * 2.0f * Mathf.PI;
+
+                float x = r * Mathf.Cos(a);
+                float y = r * Mathf.Sin(a);
+
+                GameObject rubble = Instantiate(rubble_object);
+                rubble.transform.position = new Vector3(
+                    transform.position.x + x,
+                    transform.position.y + y,
+                    Random.Range(rubble_z_range.x, rubble_z_range.y)
+                );
+            }
+
+            // Destroy wall
             Destroy(col.gameObject);
         }
     }
@@ -44,6 +61,10 @@ public class Blast_Proj : MonoBehaviour
     [SerializeField] private float lifetime;
     [SerializeField] private float fade_time;
     private Vector3 fade_rate;
+    [SerializeField] private GameObject rubble_object;
+    [SerializeField] private float rubble_radius;
+    [SerializeField] private int rubble_count;
+    [SerializeField] private Vector2 rubble_z_range;
 
     // Object methods
 }

@@ -31,7 +31,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6621256417121191187}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 10.32, y: 9.02, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.8, y: 0.8, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -234,3 +234,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   lifetime: 1
   fade_time: 0.5
+  rubble_object: {fileID: 170357278733150219, guid: 890f88299cc933540a0d4c8030698ee2,
+    type: 3}
+  rubble_radius: 1
+  rubble_count: 25
+  rubble_z_range: {x: -1, y: 1}
