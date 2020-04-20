@@ -108,7 +108,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   damge: 0
-  pushBack: 1000
+  pushBack: 500
 --- !u!1001 &520057774226487924
 PrefabInstance:
   m_ObjectHideFlags: 0

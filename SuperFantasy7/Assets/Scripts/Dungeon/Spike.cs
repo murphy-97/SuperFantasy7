@@ -1,11 +1,15 @@
-﻿using System.Collections;
+﻿/*
+ * The Spike defines how the spike object behaves. The spike will do damage to 
+ * the player and then bounce them back.
+ */
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class Spike : MonoBehaviour
 {
-    public int damge;
-    public int pushBack;
+    public int damge;   //damage done to the player
+    public int pushBack;    //how much force the spikes will push the player back.
 
     void OnCollisionEnter(Collision collision)
     {
