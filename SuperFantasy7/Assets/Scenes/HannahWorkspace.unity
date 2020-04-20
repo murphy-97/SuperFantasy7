@@ -924,7 +924,7 @@ PrefabInstance:
     - target: {fileID: 1513718171333866524, guid: 1b99f4c064a4bed41ae091fab5204a75,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: 200
       objectReference: {fileID: 0}
     - target: {fileID: 1513718171333866524, guid: 1b99f4c064a4bed41ae091fab5204a75,
         type: 3}
@@ -980,6 +980,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: SI-Room-Hook
+      objectReference: {fileID: 0}
+    - target: {fileID: 1618869321794434047, guid: 1b99f4c064a4bed41ae091fab5204a75,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1b99f4c064a4bed41ae091fab5204a75, type: 3}
@@ -1062,7 +1067,7 @@ PrefabInstance:
     - target: {fileID: 6183215612491549936, guid: bc07f0864a531bf4791dc4511c308b8b,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 200
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6183215612491549936, guid: bc07f0864a531bf4791dc4511c308b8b,
         type: 3}
