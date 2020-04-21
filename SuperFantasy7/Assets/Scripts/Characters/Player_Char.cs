@@ -28,6 +28,8 @@ public struct Item_Grapple_Hook
     public float rate_spring;
     public float damp_spring;
     public GameObject target;
+    public float use_delay;
+    public float use_timer;     // Must be set to < 0 initially
 };
 
 [System.Serializable]
@@ -115,6 +117,9 @@ public class Player_Char : MonoBehaviour
         bool cycle_item = Input.GetButton("CycleItem") && (switch_timer < 0.0f);
 
         // Manage timers
+        if (item_grapple_hook.use_timer >= 0.0f) {
+            item_grapple_hook.use_timer -= Time.deltaTime;
+        }
         if (item_blasting_staff.fire_timer >= 0.0f) {
             item_blasting_staff.fire_timer -= Time.deltaTime;
         }
@@ -128,9 +133,10 @@ public class Player_Char : MonoBehaviour
 
                 case PC_Item.Hook:
 
-                    if (is_hooked) {
+                    if (is_hooked && item_grapple_hook.use_timer < 0.0f) {
                         Grapple_Release();
-                    } else {
+                        item_grapple_hook.use_timer = item_grapple_hook.use_delay;
+                    } else if (item_grapple_hook.use_timer < 0.0f) {
                         // Perform raycast from player to mouse target
                         RaycastHit hit;
                         Vector3 sourcePos = gameObject.transform.position;
@@ -143,6 +149,7 @@ public class Player_Char : MonoBehaviour
                             // If hit a hook target, then grapple
                             if (hit.collider.gameObject.tag == "Hook_Target") {
                                 Grapple_Fire(hit.collider.gameObject.GetComponent<Rigidbody>());
+                                item_grapple_hook.use_timer = item_grapple_hook.use_delay;
                             }
                         }
                     }

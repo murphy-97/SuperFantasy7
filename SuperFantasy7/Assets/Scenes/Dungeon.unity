@@ -305,6 +305,8 @@ MonoBehaviour:
     rate_spring: 10
     damp_spring: 5
     target: {fileID: 0}
+    use_delay: 0.1
+    use_timer: -1
   item_blasting_staff:
     proj: {fileID: -3980452441545130528, guid: 2b567299564d8e348bffdbd910918886, type: 3}
     fire_delay: 1
@@ -847,8 +849,8 @@ MonoBehaviour:
   add_neighbor_chance:
   - 1
   - 0.75
-  - 0.1
-  - 0
+  - 0.2
+  - 0.05
 --- !u!4 &1240827620
 Transform:
   m_ObjectHideFlags: 0

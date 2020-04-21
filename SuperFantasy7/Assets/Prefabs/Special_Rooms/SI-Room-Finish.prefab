@@ -213,7 +213,7 @@ GameObject:
   - component: {fileID: 6155552972200706331}
   - component: {fileID: 6155552972200706328}
   m_Layer: 0
-  m_Name: Room-Finish
+  m_Name: SI-Room-Finish
   m_TagString: Pickup_Staff
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
