@@ -13,9 +13,21 @@ public enum Compass {
 public class Dungeon : MonoBehaviour
 {
     // Class (static) properties
+    private static bool use_seed = false;
+    private static int seed = 0;
 
     // Class (static) methods
+    public static void Set_Seed(int s) {
+        seed = s;
+        use_seed = true;
+    }
 
+    public static void Reset_Seed() {
+        // Mechanics of reset handled in dungeon generation
+        use_seed = false;
+    }
+
+    // Unity methods
     void Awake()
     {
         GenerateDungeon();
@@ -50,6 +62,21 @@ public class Dungeon : MonoBehaviour
     // Object methods
     public void GenerateDungeon()
     {
+        // Handle random seed
+        int local_seed = seed;
+        if (!use_seed) {
+            // Detach new random seed from last used seed
+            UnityEngine.Random.InitState(System.Environment.TickCount);
+
+            // Get new local seed
+            local_seed = BitConverter.ToInt32(
+                BitConverter.GetBytes(UnityEngine.Random.value),
+                0
+            );
+        }
+        Debug.Log("Building from seed " + local_seed);
+        UnityEngine.Random.InitState(local_seed);
+
         // Initiailze dungeon
         building_screen.gameObject.SetActive(true);
         entry_room = Room.GetFirstRoom(this, entry_prefab);
@@ -168,8 +195,9 @@ public class Dungeon : MonoBehaviour
         }
 
         Debug.Assert(si_prefabs.Length <= priority.Count);
+        int priority_offset = 0;
         for (int i = 0; i < si_prefabs.Length; i++) {
-            next = priority[priority.Keys[i]];
+            next = priority[priority.Keys[i+priority_offset]];
 
             // Add special item room as neighbor at random available direction
             List<Compass> dirs = new List<Compass> {
@@ -193,7 +221,10 @@ public class Dungeon : MonoBehaviour
                     break;
                 }
             }
-            Debug.Assert(assigned);
+
+            if (!assigned) {
+                priority_offset += 1;
+            }
         }
 
         // Finalize creation of dungeon
