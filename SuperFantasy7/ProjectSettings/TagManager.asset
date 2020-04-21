@@ -9,6 +9,7 @@ TagManager:
   - Breakable_Wall
   - Pickup_Grapple
   - Pickup_Staff
+  - Pickup_Finish
   layers:
   - Default
   - TransparentFX

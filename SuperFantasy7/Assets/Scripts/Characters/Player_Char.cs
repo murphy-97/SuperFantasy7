@@ -323,6 +323,12 @@ public class Player_Char : MonoBehaviour
              inv_has_blast_staff = true;
              Cycle_Item();
              Destroy(other.gameObject);
+
+         } else if (other.tag == "Pickup_Finish") {
+
+             Debug.Log("Finished the dungeon!");
+             Destroy(other.gameObject);
+             
          }
      }
 

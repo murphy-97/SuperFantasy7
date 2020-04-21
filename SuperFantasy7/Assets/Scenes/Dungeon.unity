@@ -842,6 +842,7 @@ MonoBehaviour:
   si_prefabs:
   - {fileID: 1513718171333866527, guid: 1b99f4c064a4bed41ae091fab5204a75, type: 3}
   - {fileID: 6183215612491549939, guid: bc07f0864a531bf4791dc4511c308b8b, type: 3}
+  - {fileID: 6155552972200706328, guid: eaee0062193d84940a6e23cd4cc3092a, type: 3}
   building_screen: {fileID: 2111698958}
   add_neighbor_chance:
   - 1
