@@ -58,7 +58,15 @@ public class Player_Char : MonoBehaviour
      {
         int minutes = (int)t / 60;
         float seconds = (float)System.Math.Round(t % 60.0f, precision);
-         return minutes + "m " + seconds + "s";
+
+        string output = (
+            (minutes < 10 ? "0" : "" ) +
+            minutes +
+            ":" +
+            (seconds < 10 ? "0" : "") +
+            seconds
+        );
+        return output;
      }
 
     /* OBJECT ATTRIBUTES */
@@ -92,12 +100,14 @@ public class Player_Char : MonoBehaviour
 
     // Respawn data
     [Header("Respawn Data")]
-    [SerializeField] private float respawn_timer;
+    [SerializeField] private float respawn_time_penalty;
     private Vector3 respawn_loc;
     private bool dead = false;
 
     [Header("UI Data")]
     [SerializeField] private Text equipped_item;
+    [SerializeField] private Text elapsed_time;
+    [SerializeField] private int clock_precision;
 
     private float level_timer = 0.0f;
     private bool run_timer = false;
@@ -148,6 +158,7 @@ public class Player_Char : MonoBehaviour
         }
         if (run_timer) {
             level_timer += Time.deltaTime;
+            elapsed_time.text = Format_Time(level_timer, clock_precision);
         }
 
         // Check for item use
@@ -360,7 +371,7 @@ public class Player_Char : MonoBehaviour
              // Report time
              string message = "Finished the dungeon!\n";
              message += "Dungeon Seed: " + dungeon.Get_Seed() + "\n";
-             message += "Dungeon Tmie: " + Format_Time(level_timer, 2) + "\n";
+             message += "Dungeon Tmie: " + Format_Time(level_timer, clock_precision) + "\n";
              Debug.Log(message);
              Destroy(other.gameObject);
              
@@ -411,6 +422,7 @@ public class Player_Char : MonoBehaviour
         if (health <= 0) {
             transform.position = respawn_loc;
             health = health_max;
+            level_timer += respawn_time_penalty;
         }
     }
 
