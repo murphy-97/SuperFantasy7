@@ -367,13 +367,18 @@ public class Player_Char : MonoBehaviour
 
          } else if (other.tag == "Pickup_Finish") {
 
-             run_timer = false;
-             // Report time
-             string message = "Finished the dungeon!\n";
-             message += "Dungeon Seed: " + dungeon.Get_Seed() + "\n";
-             message += "Dungeon Tmie: " + Format_Time(level_timer, clock_precision) + "\n";
-             Debug.Log(message);
-             Destroy(other.gameObject);
+            run_timer = false;
+            // Report time
+            string message = "Finished the dungeon!\n";
+            message += "Dungeon Seed: " + dungeon.Get_Seed() + "\n";
+            message += "Dungeon Tmie: " + Format_Time(level_timer, clock_precision) + "\n";
+            Debug.Log(message);
+
+            if (Main_Menu.Consider_Best_Time(level_timer, dungeon.Get_Seed())) {
+                Debug.Log("NEW BEST TIME");
+            }
+
+            Destroy(other.gameObject);
              
          }
      }
