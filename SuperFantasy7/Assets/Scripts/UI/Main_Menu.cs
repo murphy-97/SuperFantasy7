@@ -13,7 +13,7 @@ public enum Menu_Type {
 public class Main_Menu : MonoBehaviour
 {
     // Class (static) properties
-    private static SortedList<float, int> best_times;
+    private static SortedList<float, int> best_times = new SortedList<float, int>();
     private static int best_time_count = 10;
 
     // Class (static) methods

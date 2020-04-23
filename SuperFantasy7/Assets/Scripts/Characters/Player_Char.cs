@@ -12,6 +12,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 // Used to track currently equipped item
 enum PC_Item {
@@ -108,6 +109,10 @@ public class Player_Char : MonoBehaviour
     [SerializeField] private Text equipped_item;
     [SerializeField] private Text elapsed_time;
     [SerializeField] private int clock_precision;
+
+    [SerializeField] private Text end_notice;
+    [SerializeField] private GameObject end_screen;
+    [SerializeField] private Text end_time;
 
     private float level_timer = 0.0f;
     private bool run_timer = false;
@@ -374,10 +379,14 @@ public class Player_Char : MonoBehaviour
             message += "Dungeon Tmie: " + Format_Time(level_timer, clock_precision) + "\n";
             Debug.Log(message);
 
+            end_time.text = Format_Time(level_timer, clock_precision);
+
             if (Main_Menu.Consider_Best_Time(level_timer, dungeon.Get_Seed())) {
                 Debug.Log("NEW BEST TIME");
+                end_notice.text += " New Best Time!";
             }
 
+            end_screen.SetActive(true);
             Destroy(other.gameObject);
              
          }
@@ -494,5 +503,14 @@ public class Player_Char : MonoBehaviour
                 }
                 break;
         }
+    }
+
+    public void Load_Scene(string scene) {
+        SceneManager.LoadScene(scene, LoadSceneMode.Single);
+    }
+
+    public void Replay_Dungeon(string scene) {
+        Dungeon.Set_Seed(dungeon.Get_Seed());
+        SceneManager.LoadScene(scene, LoadSceneMode.Single);
     }
 }
