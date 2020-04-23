@@ -195,4 +195,18 @@ public class Main_Menu : MonoBehaviour
     public void Quit_Game() {
         Application.Quit();
     }
+
+    public void Reset_Best_Times() {
+
+        for (int i = 0; i < time_list.Length; i++) {
+
+            if (PlayerPrefs.GetInt("scoreSet_" + i, 0) != 0) {
+                PlayerPrefs.SetInt("scoreSet_" + i, 0);
+            } else {
+                break;
+            }
+        }
+        Initialize_Best_Times(time_list);
+        Display_Best_Times();
+    }
 }
