@@ -31,7 +31,7 @@ public class Main_Menu : MonoBehaviour
                 );
 
             } else {
-                break;
+                time_list[i].gameObject.SetActive(false);
             }
         }
     }
