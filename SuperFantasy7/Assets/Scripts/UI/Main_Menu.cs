@@ -43,29 +43,21 @@ public class Main_Menu : MonoBehaviour
         if (best_times.Keys.Count < best_time_count) {
             is_new_best = true;
             best_times.Add(t, s);
-
-            // Save best times in PlayerPrefs
-            for (int j = 0; j < best_times.Keys.Count; j++) {
-                PlayerPrefs.SetInt("scoreSet_" + j, 1);
-                PlayerPrefs.SetFloat("scoreTime_" + j, t);
-                PlayerPrefs.SetInt("scoreSeed_" + j, s);
+        } else {
+            for (int i = 0; i < best_times.Keys.Count && i < best_time_count; i++) {
+                if (t < best_times.Keys[i]) {
+                    is_new_best = true;
+                    best_times.Add(t, s);
+                    break;
+                }
             }
-            return is_new_best;
         }
 
+        // Save best times in PlayerPrefs
         for (int i = 0; i < best_times.Keys.Count; i++) {
-            if (t < best_times[best_times.Keys[i]]) {
-                is_new_best = true;
-                best_times.Add(t, s);
-
-                // Save best times in PlayerPrefs
-                for (int j = 0; j < best_times.Keys.Count; j++) {
-                    PlayerPrefs.SetInt("scoreSet_" + j, 1);
-                    PlayerPrefs.SetFloat("scoreTime_" + j, t);
-                    PlayerPrefs.SetInt("scoreSeed_" + j, s);
-                }
-                break;
-            }
+            PlayerPrefs.SetInt("scoreSet_" + i, 1);
+            PlayerPrefs.SetFloat("scoreTime_" + i, best_times.Keys[i]);
+            PlayerPrefs.SetInt("scoreSeed_" + i, best_times[best_times.Keys[i]]);
         }
 
         return is_new_best;
