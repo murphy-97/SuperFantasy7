@@ -11,6 +11,8 @@ static variables, guaranteeing persistence between scene loads.
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 // Used to track currently equipped item
 enum PC_Item {
@@ -53,12 +55,26 @@ public class Player_Char : MonoBehaviour
     private static bool inv_has_blast_staff = false;
 
     /* CLASS METHODS (STATIC) */
+    public static string Format_Time(float t, int precision)
+     {
+        int minutes = (int)t / 60;
+        float seconds = (float)System.Math.Round(t % 60.0f, precision);
+
+        string output = (
+            (minutes < 10 ? "0" : "" ) +
+            minutes +
+            ":" +
+            (seconds < 10 ? "0" : "") +
+            seconds
+        );
+        return output;
+     }
 
     /* OBJECT ATTRIBUTES */
 
     // Combat data
     [Header("Combat Data")]
-    [SerializeField] private int health_current;
+    [SerializeField] private int health;
 
     [Header("Inventory Data")]
     [SerializeField] private PC_Item item_current;
@@ -69,6 +85,7 @@ public class Player_Char : MonoBehaviour
 
     // Movement data
     [Header("Movement Data")]
+    [SerializeField] private Dungeon dungeon;
     [SerializeField] private float speed_max_run;
     [SerializeField] private float speed_run;
     [SerializeField] private float speed_jump;
@@ -84,17 +101,35 @@ public class Player_Char : MonoBehaviour
 
     // Respawn data
     [Header("Respawn Data")]
-    [SerializeField] private float respawn_timer;
+    [SerializeField] private float respawn_time_penalty;
     private Vector3 respawn_loc;
     private bool dead = false;
 
+    [Header("UI Data")]
+    [SerializeField] private Text equipped_item;
+    [SerializeField] private Text elapsed_time;
+    [SerializeField] private int clock_precision;
+
+    [SerializeField] private Text end_notice;
+    [SerializeField] private GameObject end_screen;
+    [SerializeField] private Text end_time;
+
+    private float level_timer = 0.0f;
+    private bool run_timer = false;
+
     /* UNITY BUILT-IN METHODS */
+
+    void Awake()
+    {
+        health_max = health;
+    }
 
     // Start is called before the first frame update
     void Start()
     {
         respawn_loc = transform.position;
         rb = gameObject.GetComponent<Rigidbody>();
+        Start_Timer();
     }
 
     // Update is called once per frame
@@ -125,6 +160,10 @@ public class Player_Char : MonoBehaviour
         }
         if (switch_timer >= 0.0f) {
             switch_timer -= Time.deltaTime;
+        }
+        if (run_timer) {
+            level_timer += Time.deltaTime;
+            elapsed_time.text = Format_Time(level_timer, clock_precision);
         }
 
         // Check for item use
@@ -333,8 +372,22 @@ public class Player_Char : MonoBehaviour
 
          } else if (other.tag == "Pickup_Finish") {
 
-             Debug.Log("Finished the dungeon!");
-             Destroy(other.gameObject);
+            run_timer = false;
+            // Report time
+            string message = "Finished the dungeon!\n";
+            message += "Dungeon Seed: " + dungeon.Get_Seed() + "\n";
+            message += "Dungeon Tmie: " + Format_Time(level_timer, clock_precision) + "\n";
+            Debug.Log(message);
+
+            end_time.text = Format_Time(level_timer, clock_precision);
+
+            if (Main_Menu.Consider_Best_Time(level_timer, dungeon.Get_Seed())) {
+                Debug.Log("NEW BEST TIME");
+                end_notice.text += " New Best Time!";
+            }
+
+            end_screen.SetActive(true);
+            Destroy(other.gameObject);
              
          }
      }
@@ -374,6 +427,19 @@ public class Player_Char : MonoBehaviour
         return Vector3.zero;
     }
 
+    public void Start_Timer() {
+        run_timer = true;
+    }
+
+    public void Take_Damage(int d) {
+        health -= d;
+        if (health <= 0) {
+            transform.position = respawn_loc;
+            health = health_max;
+            level_timer += respawn_time_penalty;
+        }
+    }
+
     // Grapple hook methods
     public void Grapple_Fire(Rigidbody target) {
         SpringJoint joint = gameObject.AddComponent<SpringJoint>();
@@ -405,10 +471,12 @@ public class Player_Char : MonoBehaviour
             case PC_Item.None:
                 if (inv_has_grapple_hook) {
                     Debug.Log("Switching to Grappling Hook...");
+                    equipped_item.text = "Grapple Hook";
                     item_current = PC_Item.Hook;
                     switch_timer = switch_delay;
                 } else if (inv_has_blast_staff) {
                     Debug.Log("Switching to Staff of Blasting...");
+                    equipped_item.text = "Blasting Staff";
                     item_current = PC_Item.Staff;
                     switch_timer = switch_delay;
                 }
@@ -420,6 +488,7 @@ public class Player_Char : MonoBehaviour
                         Grapple_Release();
                     }
                     Debug.Log("Switching to Staff of Blasting...");
+                    equipped_item.text = "Blasting Staff";
                     item_current = PC_Item.Staff;
                     switch_timer = switch_delay;
                 }
@@ -428,10 +497,20 @@ public class Player_Char : MonoBehaviour
             case PC_Item.Staff:
                 if (inv_has_grapple_hook) {
                     Debug.Log("Switching to Grappling Hook...");
+                    equipped_item.text = "Grapple Hook";
                     item_current = PC_Item.Hook;
                     switch_timer = switch_delay;
                 }
                 break;
         }
+    }
+
+    public void Load_Scene(string scene) {
+        SceneManager.LoadScene(scene, LoadSceneMode.Single);
+    }
+
+    public void Replay_Dungeon(string scene) {
+        Dungeon.Set_Seed(dungeon.Get_Seed());
+        SceneManager.LoadScene(scene, LoadSceneMode.Single);
     }
 }

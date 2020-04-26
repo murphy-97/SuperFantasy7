@@ -58,12 +58,13 @@ public class Dungeon : MonoBehaviour
 
     private Room entry_room;
     private Dictionary<Tuple<int, int>, Room> room_dict;
+    private int local_seed;
 
     // Object methods
     public void GenerateDungeon()
     {
         // Handle random seed
-        int local_seed = seed;
+        local_seed = seed;
         if (!use_seed) {
             // Detach new random seed from last used seed
             UnityEngine.Random.InitState(System.Environment.TickCount);
@@ -234,5 +235,9 @@ public class Dungeon : MonoBehaviour
     public Vector2 GetRoomSpacing()
     {
         return room_spacing;
+    }
+
+    public int Get_Seed() {
+        return local_seed;
     }
 }
