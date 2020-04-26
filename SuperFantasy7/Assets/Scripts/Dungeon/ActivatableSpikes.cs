@@ -8,27 +8,26 @@ using UnityEngine;
 
 public class ActivatableSpikes : MonoBehaviour
 {
-    
+    public int damage;
+    public int pushBack;
     public float spikeDelay; //how much time will pass before the spikes appear
     public float spikeDuration; //how long the spikes are deployed
     public float spikeSpeed; //how long untill spikes are fully extedned
-    public bool isSpiked; //determines if the spikes are already activated
-    public bool inSpikes; //determines if the player is in the spike damage range
     public Transform goal1; //how far the spikes will move
     public Transform goal2; //how far the spikes will move
     public Transform origin1; //original spike pos
     public Transform origin2; //original spike pos
     private Transform spike1; //the first spike
     private Transform spike2; //the second spike
-    
+    private bool isSpiked; //determines if the spikes are activated
+    private bool inSpikes; //determines if the player is in the spike damage range
+
 
     //Start is called before the first frame update
     private void Start()
     {
         spike1 = transform.GetChild(0);
         spike2 = transform.GetChild(1);
-        //move1 = new Vector3(spike1.position.x, spike1.position.y + 0.75f, 0);
-        //move2 = new Vector3(spike2.position.x, spike2.position.y + 0.75f, 0);
         isSpiked = false;
         inSpikes = false;
     }
@@ -38,22 +37,33 @@ public class ActivatableSpikes : MonoBehaviour
     {
         if(collider.gameObject.name == "Player" && !isSpiked)
         {
-            StartCoroutine(SpikeDelay());
+            StartCoroutine(SpikeDelay(collider));
             isSpiked = true;
+        }
+        if (collider.gameObject.name == "Player")
+        {
+            inSpikes = true;
+        }
+    }
+
+    //makes sure that the player in within spike range
+    private void OnTriggerExit(Collider collider)
+    {
+        if (collider.gameObject.name == "Player")
+        {
+            inSpikes = false;
         }
     }
 
     //moves the spikes after "spikeDelay" seconds
-    private IEnumerator SpikeDelay()
+    private IEnumerator SpikeDelay(Collider collider)
     {
         float elapsedTime = 0;
-
-        /*Vector3 startSpike1 = spike1.position;
-        Vector3 startSpike2 = spike2.position;*/
 
         yield return new WaitForSeconds(spikeDelay);
         while (elapsedTime <= spikeSpeed)
         {
+            SpikeEm(collider);
             spike1.transform.position = Vector3.Lerp(spike1.position, goal1.position, (elapsedTime / spikeSpeed));
             spike2.transform.position = Vector3.Lerp(spike2.position, goal2.position, (elapsedTime / spikeSpeed));
 
@@ -62,7 +72,14 @@ public class ActivatableSpikes : MonoBehaviour
         }
 
         elapsedTime = 0;
-        yield return new WaitForSeconds(spikeDuration);
+        while (elapsedTime <= spikeDuration)
+        {
+            SpikeEm(collider);
+            elapsedTime += Time.deltaTime;
+            yield return new WaitForEndOfFrame();
+        }
+
+        elapsedTime = 0;
         while (elapsedTime <= spikeSpeed)
         {
             spike1.transform.position = Vector3.Lerp(spike1.position, origin1.position, (elapsedTime / spikeSpeed));
@@ -72,8 +89,26 @@ public class ActivatableSpikes : MonoBehaviour
             yield return new WaitForEndOfFrame();
         }
         isSpiked = false;
-        /*yield return new WaitForSeconds(spikeDelay);
-        spike1.Translate(move, Space.World);
-        spike2.Translate(move, Space.World);*/
+    }
+
+    /**
+     * pushes the player back and deals damage
+     */
+    private void SpikeEm(Collider collider)
+    {
+        if (inSpikes)
+        {
+            Vector3 pushDirection = collider.transform.position - transform.position;
+
+            pushDirection.Normalize();
+
+            pushDirection.z = 0;
+
+            collider.gameObject.GetComponent<Rigidbody>().AddForce(pushDirection * pushBack);
+
+            collider.gameObject.GetComponent<Player_Char>().Take_Damage(damage);
+
+            inSpikes = false;
+        }
     }
 }
