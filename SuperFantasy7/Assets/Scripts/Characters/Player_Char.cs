@@ -83,6 +83,14 @@ public class Player_Char : MonoBehaviour
     [SerializeField] private float switch_delay;
     private float switch_timer = -1.0f;
 
+    [SerializeField] private float speed_boost_mult;
+    [SerializeField] private float speed_boost_time;
+    private float speed_boost_timer = -1.0f;
+
+    [SerializeField] private float jump_boost_mult;
+    [SerializeField] private float jump_boost_time;
+    private float jump_boost_timer = -1.0f;
+
     // Movement data
     [Header("Movement Data")]
     [SerializeField] private Dungeon dungeon;
@@ -164,6 +172,12 @@ public class Player_Char : MonoBehaviour
         if (run_timer) {
             level_timer += Time.deltaTime;
             elapsed_time.text = Format_Time(level_timer, clock_precision);
+        }
+        if (speed_boost_timer >= 0.0f) {
+            speed_boost_timer -= Time.deltaTime;
+        }
+        if (jump_boost_timer >= 0.0f) {
+            jump_boost_timer -= Time.deltaTime;
         }
 
         // Check for item use
@@ -248,7 +262,7 @@ public class Player_Char : MonoBehaviour
             // Jumping controls
             if (move_up && !move_down && rb.velocity.y <= 0.0f) {
                 // Jump
-                speed_change.y = speed_jump - rb.velocity.y;
+                speed_change.y = (speed_jump - rb.velocity.y) * (jump_boost_timer > 0.0f ? jump_boost_mult : 1.0f);
             }
         }
 
@@ -280,12 +294,12 @@ public class Player_Char : MonoBehaviour
             if (move_l && !move_r) {
                 // Move left
                 if (rb.velocity.x > -1.0f * speed_max_run) {
-                    speed_change.x = -1.0f * speed_run;
+                    speed_change.x = -1.0f * speed_run * (speed_boost_timer > 0.0f ? speed_boost_mult : 1.0f);
                 }
             } else if (move_r && !move_l) {
                 // Move right
                 if (rb.velocity.x < speed_max_run) {
-                    speed_change.x = speed_run;
+                    speed_change.x = speed_run * (speed_boost_timer > 0.0f ? speed_boost_mult : 1.0f);
                 }
             } else if (!move_l && !move_r) {
                 // Stop side-to-side movement
@@ -297,7 +311,7 @@ public class Player_Char : MonoBehaviour
                 float slow_rate = -0.45f;
 
                 if (Mathf.Abs(rb.velocity.x) > slow_thresh * speed_run) {
-                    speed_change.x = slow_rate * rb.velocity.x;
+                    speed_change.x = slow_rate * rb.velocity.x * (speed_boost_timer > 0.0f ? speed_boost_mult : 1.0f);
                 }
             }
 
@@ -316,18 +330,18 @@ public class Player_Char : MonoBehaviour
                 // Move left
                 if (rb.velocity.x > -1.0f * speed_max_run) {
                     if (rb.velocity.x > side_thresh) {
-                        speed_change.x = -0.75f * speed_run;
+                        speed_change.x = -0.75f * speed_run * (speed_boost_timer > 0.0f ? speed_boost_mult : 1.0f);
                     } else {
-                        speed_change.x = speed_run * (-2.0f / (1.0f + Mathf.Abs(rb.velocity.x)));
+                        speed_change.x = speed_run * (-2.0f / (1.0f + Mathf.Abs(rb.velocity.x)))  * (speed_boost_timer > 0.0f ? speed_boost_mult : 1.0f);
                     }
                 }
             } else if (move_r && !move_l) {
                 // Move right
                 if (rb.velocity.x < speed_max_run) {
                     if (rb.velocity.x < -1.0f * side_thresh) {
-                        speed_change.x = 0.75f * speed_run;
+                        speed_change.x = 0.75f * speed_run * (speed_boost_timer > 0.0f ? speed_boost_mult : 1.0f);
                     } else {
-                        speed_change.x = speed_run * (2.0f / (1.0f + Mathf.Abs(rb.velocity.x)));
+                        speed_change.x = speed_run * (2.0f / (1.0f + Mathf.Abs(rb.velocity.x))) * (speed_boost_timer > 0.0f ? speed_boost_mult : 1.0f);
                     }
                 }
             }
@@ -389,8 +403,19 @@ public class Player_Char : MonoBehaviour
             end_screen.SetActive(true);
             Destroy(other.gameObject);
              
-         }
-     }
+         } else if (other.tag == "Pickup_Speed") {
+
+             Debug.Log("Picked up a speed boost");
+             speed_boost_timer = speed_boost_time;
+             Destroy(other.gameObject);
+
+         } else if (other.tag == "Pickup_Jump") {
+
+             Debug.Log("Picked up a jump boost");
+             jump_boost_timer = jump_boost_time;
+             Destroy(other.gameObject);
+
+         }     }
 
     // Used by the physics system
     void FixedUpdate()
