@@ -491,6 +491,10 @@ MonoBehaviour:
     fire_timer: -1
     velocity: 20
   switch_delay: 0.5
+  speed_boost_mult: 2
+  speed_boost_time: 8
+  jump_boost_mult: 1.5
+  jump_boost_time: 8
   dungeon: {fileID: 1240827619}
   speed_max_run: 15
   speed_run: 1

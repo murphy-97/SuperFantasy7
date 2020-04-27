@@ -10,6 +10,8 @@ TagManager:
   - Pickup_Grapple
   - Pickup_Staff
   - Pickup_Finish
+  - Pickup_Speed
+  - Pickup_Jump
   layers:
   - Default
   - TransparentFX
