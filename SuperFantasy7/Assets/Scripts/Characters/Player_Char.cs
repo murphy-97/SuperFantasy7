@@ -73,6 +73,7 @@ public class Player_Char : MonoBehaviour
     /* OBJECT ATTRIBUTES */
 
     [SerializeField] private Transform model;
+    [SerializeField] private Animator animator;
     [Range(-1,1)][SerializeField] private int heading;
 
     // Combat data
@@ -384,6 +385,10 @@ public class Player_Char : MonoBehaviour
             model.transform.localScale.y,
             Mathf.Abs(model.transform.localScale.z) * (heading < 0 ? -1.0f : 1.0f)
         );
+        // Update animator
+        animator.SetInteger("speed", (((move_l || move_r) && is_grounded) ? 1 : 0));
+        animator.SetBool("grounded", (is_grounded || on_wall_l || on_wall_r));
+        animator.SetBool("falling", rb.velocity.y < 0.0f);
     }
 
     void OnTriggerEnter(Collider other) {
