@@ -509,6 +509,10 @@ public class Player_Char : MonoBehaviour
     }
 
     public void Cycle_Item() {
+        if (switch_timer >= 0.0f) {
+            return;
+        }
+
         switch (item_current) {
             
             case PC_Item.None:
