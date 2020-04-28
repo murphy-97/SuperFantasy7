@@ -9,9 +9,10 @@ The player navigates the dungeon by using the "Move Up", "Move Down", "Move Left
 The player's goal is to collect all three special items (purple spheres) hidden in the dungeon. Two of these special items grant the player new abilities that are required to reach the third:
 
 **Grapple Hook:** The Grapple Hook allows the player to swing from grapple points (yellow spheres) in the dungeon. To use the grapple hook, aim the mouse as the target and press the "Use Item" button (default RMB). If there is a clear line of sight from the player to the target, the Grapple Hook will extend and pull the player to the target.
-    * To release the Grapple Hook, press "Use Item" again (default RMB)
-    * To move up or down the Grapple Hook (such as by "reeling in" or "letting out" the line), press "Move Up" or "Move Down"
-    * To swing from the Grapple Hook, press "Move Left" or "Move Right"
+
+* To release the Grapple Hook, press "Use Item" again (default RMB)
+* To move up or down the Grapple Hook (such as by "reeling in" or "letting out" the line), press "Move Up" or "Move Down"
+* To swing from the Grapple Hook, press "Move Left" or "Move Right"
     
 **Blasting Staff:** The Blasting Staff allows the player to shoot projectiles that destroy yellow walls anywhere in the dungeon. Projectiles fired from the Blasting Staff will ricochet off of the player and the structures that make up the dungeon before fading after a short time. The Blasting Staff can be used to access boost items or clear away obstacles. To fire the Blasting Staff, aim with the mouse and press the "Use Item" button (default RMB). The projectile will fire from the player in the direction of the mouse.
 
