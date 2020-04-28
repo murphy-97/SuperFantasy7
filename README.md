@@ -35,7 +35,7 @@ The player's goal is to collect all three special items (purple spheres) hidden 
 ## Planned Features Cut From Implementation
 SuperFantasy7 was originally going to feature an overworld area connecting two to three randomly generated dungeons. Each dungeon would have one unlockable special item and would be marked complete after a boss fight using that special item. Rooms in the dungeon would feature more traps (such as moving saw blades) and multiple tiers of minion-type enemies.
 
-Due to difficulties maintaining this scope while working remotely, combat mechancis and the overworld area were cut from the game. To make up for the loss in narrative content of the game, we introduced timing mechanics and the "Best Times" listing. This shifted the game from a platforming adventure game to a platforming race game. 
+Due to difficulties maintaining this scope while working remotely, combat mechanics and the overworld area were cut from the game. To make up for the loss in narrative content of the game, we introduced timing mechanics and the "Best Times" listing. This shifted the game from a platforming adventure game to a platforming race game. Rather than introducing one special item per dungeon, both items were made available and were made required for dungeon completion.
 
 ## Known Bugs & Issues
 * In some cases, picking up the Blasting Staff will also unlock the Grapple Hook.
