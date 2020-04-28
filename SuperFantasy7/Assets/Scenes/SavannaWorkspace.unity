@@ -178,6 +178,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: -6057140222963153312, guid: c8f3b4b15a1983546b7abfb3a95d94c4,
+        type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 9100000, guid: c3ea0985a2ea0a74e9fddaff8a0176b8, type: 2}
     - target: {fileID: -4216859302048453862, guid: c8f3b4b15a1983546b7abfb3a95d94c4,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -666,6 +671,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a17777da7536aa64e88e3a3a2a3f7664, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  model: {fileID: 0}
+  heading: 0
   health: 0
   item_current: 2
   item_grapple_hook:
