@@ -72,6 +72,9 @@ public class Player_Char : MonoBehaviour
 
     /* OBJECT ATTRIBUTES */
 
+    [SerializeField] private Transform model;
+    [Range(-1,1)][SerializeField] private int heading;
+
     // Combat data
     [Header("Combat Data")]
     [SerializeField] private int health;
@@ -197,6 +200,8 @@ public class Player_Char : MonoBehaviour
                         targetPos.z = sourcePos.z;
                         Vector3 direction = targetPos - sourcePos;
                         
+                        heading = (targetPos.x < sourcePos.x ? -1 : 1);
+
                         // TO DO: Put finite range on the grappling hook?
                         if(Physics.Raycast(sourcePos, direction, out hit)) {
                             // If hit a hook target, then grapple
@@ -217,6 +222,8 @@ public class Player_Char : MonoBehaviour
                         Vector3 targetPos = Get_Mouse_World_Position();
                         targetPos.z = sourcePos.z;
                         Vector3 direction = targetPos - sourcePos;
+                        
+                        heading = (targetPos.x < sourcePos.x ? -1 : 1);
 
                         float angle = Mathf.Atan2(direction.y, direction.x);
                         Vector3 speed = new Vector3(
@@ -293,11 +300,13 @@ public class Player_Char : MonoBehaviour
             // Side-to-side controls
             if (move_l && !move_r) {
                 // Move left
+                heading = -1;
                 if (rb.velocity.x > -1.0f * speed_max_run) {
                     speed_change.x = -1.0f * speed_run * (speed_boost_timer > 0.0f ? speed_boost_mult : 1.0f);
                 }
             } else if (move_r && !move_l) {
                 // Move right
+                heading = 1;
                 if (rb.velocity.x < speed_max_run) {
                     speed_change.x = speed_run * (speed_boost_timer > 0.0f ? speed_boost_mult : 1.0f);
                 }
@@ -328,6 +337,7 @@ public class Player_Char : MonoBehaviour
 
             if (move_l && !move_r) {
                 // Move left
+                heading = -1;
                 if (rb.velocity.x > -1.0f * speed_max_run) {
                     if (rb.velocity.x > side_thresh) {
                         speed_change.x = -0.75f * speed_run * (speed_boost_timer > 0.0f ? speed_boost_mult : 1.0f);
@@ -337,6 +347,7 @@ public class Player_Char : MonoBehaviour
                 }
             } else if (move_r && !move_l) {
                 // Move right
+                heading = 1;
                 if (rb.velocity.x < speed_max_run) {
                     if (rb.velocity.x < -1.0f * side_thresh) {
                         speed_change.x = 0.75f * speed_run * (speed_boost_timer > 0.0f ? speed_boost_mult : 1.0f);
@@ -366,6 +377,13 @@ public class Player_Char : MonoBehaviour
                 line.SetPosition(1, Vector3.zero);
             }
         }
+
+        // Update model facing direction
+        model.transform.localScale = new Vector3(
+            model.transform.localScale.x,
+            model.transform.localScale.y,
+            Mathf.Abs(model.transform.localScale.z) * (heading < 0 ? -1.0f : 1.0f)
+        );
     }
 
     void OnTriggerEnter(Collider other) {
