@@ -660,7 +660,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f8b9381c61464e9419ce35f273188562, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damage: 0
+  damage: 20
   pushBack: 500
   spikeDelay: 0.5
   spikeDuration: 1
@@ -903,7 +903,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f8b9381c61464e9419ce35f273188562, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damage: 0
+  damage: 20
   pushBack: 500
   spikeDelay: 0.5
   spikeDuration: 1
@@ -1300,7 +1300,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f8b9381c61464e9419ce35f273188562, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damage: 0
+  damage: 20
   pushBack: 500
   spikeDelay: 0.5
   spikeDuration: 1
@@ -1421,7 +1421,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f8b9381c61464e9419ce35f273188562, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damage: 0
+  damage: 20
   pushBack: 500
   spikeDelay: 0.5
   spikeDuration: 1
@@ -2120,7 +2120,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f8b9381c61464e9419ce35f273188562, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damage: 0
+  damage: 20
   pushBack: 500
   spikeDelay: 0.5
   spikeDuration: 1
@@ -2699,7 +2699,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f8b9381c61464e9419ce35f273188562, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damage: 0
+  damage: 20
   pushBack: 500
   spikeDelay: 0.5
   spikeDuration: 1
@@ -3004,7 +3004,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f8b9381c61464e9419ce35f273188562, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damage: 0
+  damage: 20
   pushBack: 500
   spikeDelay: 0.5
   spikeDuration: 1
@@ -3399,7 +3399,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f8b9381c61464e9419ce35f273188562, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damage: 0
+  damage: 20
   pushBack: 500
   spikeDelay: 0.5
   spikeDuration: 1
