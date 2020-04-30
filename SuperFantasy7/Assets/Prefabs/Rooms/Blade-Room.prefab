@@ -61,9 +61,10 @@ GameObject:
   - component: {fileID: 254554575}
   - component: {fileID: 254554574}
   - component: {fileID: 254554573}
+  - component: {fileID: 7895476322366586865}
   m_Layer: 0
   m_Name: Saw
-  m_TagString: Untagged
+  m_TagString: Breakable_Trap
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -156,6 +157,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   damage: 20
   pushBack: 700
+--- !u!114 &7895476322366586865
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 254554571}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: daf7f0b626da7d349951100291665822, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &404517120
 GameObject:
   m_ObjectHideFlags: 0
@@ -367,9 +380,10 @@ GameObject:
   - component: {fileID: 867354811}
   - component: {fileID: 867354810}
   - component: {fileID: 867354809}
+  - component: {fileID: 743516755090729755}
   m_Layer: 0
   m_Name: Saw
-  m_TagString: Untagged
+  m_TagString: Breakable_Trap
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -462,6 +476,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   damage: 20
   pushBack: 700
+--- !u!114 &743516755090729755
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 867354807}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: daf7f0b626da7d349951100291665822, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1051888384
 GameObject:
   m_ObjectHideFlags: 0
@@ -553,9 +579,10 @@ GameObject:
   - component: {fileID: 1592711498}
   - component: {fileID: 1592711497}
   - component: {fileID: 1592711500}
+  - component: {fileID: 1656338308602295389}
   m_Layer: 0
   m_Name: Saw
-  m_TagString: Untagged
+  m_TagString: Breakable_Trap
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -648,6 +675,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   damage: 20
   pushBack: 700
+--- !u!114 &1656338308602295389
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1592711495}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: daf7f0b626da7d349951100291665822, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1774230390
 GameObject:
   m_ObjectHideFlags: 0
@@ -805,9 +844,10 @@ GameObject:
   - component: {fileID: 1886578771}
   - component: {fileID: 1886578770}
   - component: {fileID: 1886578769}
+  - component: {fileID: 4562130546929078978}
   m_Layer: 0
   m_Name: Saw
-  m_TagString: Untagged
+  m_TagString: Breakable_Trap
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -900,6 +940,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   damage: 20
   pushBack: 700
+--- !u!114 &4562130546929078978
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1886578767}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: daf7f0b626da7d349951100291665822, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1899473392
 GameObject:
   m_ObjectHideFlags: 0
@@ -980,9 +1032,10 @@ GameObject:
   - component: {fileID: 1999269526}
   - component: {fileID: 1999269525}
   - component: {fileID: 1999269524}
+  - component: {fileID: 1046898002755886856}
   m_Layer: 0
   m_Name: Saw
-  m_TagString: Untagged
+  m_TagString: Breakable_Trap
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1075,6 +1128,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   damage: 20
   pushBack: 700
+--- !u!114 &1046898002755886856
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1999269522}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: daf7f0b626da7d349951100291665822, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2020336592
 GameObject:
   m_ObjectHideFlags: 0
@@ -1088,9 +1153,10 @@ GameObject:
   - component: {fileID: 2020336596}
   - component: {fileID: 2020336595}
   - component: {fileID: 2020336594}
+  - component: {fileID: 6676448018619910243}
   m_Layer: 0
   m_Name: Saw
-  m_TagString: Untagged
+  m_TagString: Breakable_Trap
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1183,6 +1249,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   damage: 20
   pushBack: 700
+--- !u!114 &6676448018619910243
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2020336592}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: daf7f0b626da7d349951100291665822, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2051435288
 GameObject:
   m_ObjectHideFlags: 0
@@ -1196,9 +1274,10 @@ GameObject:
   - component: {fileID: 2051435292}
   - component: {fileID: 2051435291}
   - component: {fileID: 2051435290}
+  - component: {fileID: 2848218504346324691}
   m_Layer: 0
   m_Name: Saw
-  m_TagString: Untagged
+  m_TagString: Breakable_Trap
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1291,6 +1370,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   damage: 20
   pushBack: 700
+--- !u!114 &2848218504346324691
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2051435288}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: daf7f0b626da7d349951100291665822, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2124027864
 GameObject:
   m_ObjectHideFlags: 0
@@ -2269,9 +2360,9 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9c7f435f731a3c447a6eaa46c09199d8, type: 3}
---- !u!1 &8129857354893791978 stripped
+--- !u!1 &8129857355096564814 stripped
 GameObject:
-  m_CorrespondingSourceObject: {fileID: 8703069085562082404, guid: 9c7f435f731a3c447a6eaa46c09199d8,
+  m_CorrespondingSourceObject: {fileID: 8703069085630898880, guid: 9c7f435f731a3c447a6eaa46c09199d8,
     type: 3}
   m_PrefabInstance: {fileID: 582245318235915918}
   m_PrefabAsset: {fileID: 0}
@@ -2281,21 +2372,21 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 582245318235915918}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &8129857355096564814 stripped
+--- !u!1 &8129857355137743025 stripped
 GameObject:
-  m_CorrespondingSourceObject: {fileID: 8703069085630898880, guid: 9c7f435f731a3c447a6eaa46c09199d8,
+  m_CorrespondingSourceObject: {fileID: 8703069085652680255, guid: 9c7f435f731a3c447a6eaa46c09199d8,
+    type: 3}
+  m_PrefabInstance: {fileID: 582245318235915918}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &8129857354893791978 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8703069085562082404, guid: 9c7f435f731a3c447a6eaa46c09199d8,
     type: 3}
   m_PrefabInstance: {fileID: 582245318235915918}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &8129857353897621612 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 8703069084414918370, guid: 9c7f435f731a3c447a6eaa46c09199d8,
-    type: 3}
-  m_PrefabInstance: {fileID: 582245318235915918}
-  m_PrefabAsset: {fileID: 0}
---- !u!1 &8129857355137743025 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 8703069085652680255, guid: 9c7f435f731a3c447a6eaa46c09199d8,
     type: 3}
   m_PrefabInstance: {fileID: 582245318235915918}
   m_PrefabAsset: {fileID: 0}

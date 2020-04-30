@@ -13,9 +13,10 @@ GameObject:
   - component: {fileID: 3414146833992215460}
   - component: {fileID: 6788028042844405959}
   - component: {fileID: 9153519011270753540}
+  - component: {fileID: 5419355512537166209}
   m_Layer: 0
   m_Name: Saw
-  m_TagString: Untagged
+  m_TagString: Breakable_Trap
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -108,6 +109,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   damage: 20
   pushBack: 700
+--- !u!114 &5419355512537166209
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 901373269062906019}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: daf7f0b626da7d349951100291665822, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2463545583729782642
 GameObject:
   m_ObjectHideFlags: 0

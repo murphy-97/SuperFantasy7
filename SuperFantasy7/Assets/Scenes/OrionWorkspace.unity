@@ -337,6 +337,7 @@ MonoBehaviour:
   end_notice: {fileID: 0}
   end_screen: {fileID: 0}
   end_time: {fileID: 0}
+  health_bar: {fileID: 0}
 --- !u!96 &427461933
 TrailRenderer:
   serializedVersion: 2
@@ -825,3 +826,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9f7a6f9197751334bb90f30af2fc59e1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  spawn: {fileID: 0}

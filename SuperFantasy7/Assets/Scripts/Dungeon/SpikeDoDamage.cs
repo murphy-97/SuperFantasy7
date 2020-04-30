@@ -13,7 +13,7 @@ public class SpikeDoDamage : MonoBehaviour
         {
             if (!invincible)
             {
-                collider.gameObject.GetComponent<Player_Char>().Take_Damage(damage);//Player_Char TmpMove
+                collider.gameObject.GetComponent<TmpMove>().Take_Damage(damage);//Player_Char TmpMove
                 invincible = true;
             }
         }

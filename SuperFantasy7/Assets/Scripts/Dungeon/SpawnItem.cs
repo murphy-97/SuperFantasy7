@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class SpawnItem : MonoBehaviour
 {
+    public Transform spawn;
+    
     // Start is called before the first frame update
     void Start()
     {
