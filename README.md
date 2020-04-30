@@ -38,4 +38,4 @@ SuperFantasy7 was originally going to feature an overworld area connecting two t
 Due to difficulties maintaining this scope while working remotely, combat mechanics and the overworld area were cut from the game. To make up for the loss in narrative content of the game, we introduced timing mechanics and the "Best Times" listing. This shifted the game from a platforming adventure game to a platforming race game. Rather than introducing one special item per dungeon, both items were made available and were made required for dungeon completion.
 
 ## Known Bugs & Issues
-* In some cases, picking up the Blasting Staff will also unlock the Grapple Hook.
+* Player can exploit grapple hook spring physics to reach very high speeds and clip through obstacles
