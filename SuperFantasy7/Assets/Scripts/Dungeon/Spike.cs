@@ -23,7 +23,7 @@ public class Spike : MonoBehaviour
 
             collision.gameObject.GetComponent<Rigidbody>().AddForce(enterDirection*pushBack);
 
-            collision.gameObject.GetComponent<Player_Char>().Take_Damage(damage);
+            collision.gameObject.GetComponent<Player_Char>().Take_Damage(damage); 
         }
     }
 }
