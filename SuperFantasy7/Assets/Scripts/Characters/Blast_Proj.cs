@@ -64,6 +64,10 @@ public class Blast_Proj : MonoBehaviour
                     Random.Range(rubble_z_range.x, rubble_z_range.y)
                 );
             }
+
+            // Destroy wall
+            Destroy(col.gameObject);
+            
         } else if (col.gameObject.tag == "Breakable_Trap") {
             // Disable collider from interacting with rubble
             gameObject.GetComponent<Collider>().enabled = false;
