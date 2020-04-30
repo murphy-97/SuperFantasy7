@@ -95,6 +95,15 @@ public class Player_Char : MonoBehaviour
     [SerializeField] private float jump_boost_time;
     private float jump_boost_timer = -1.0f;
 
+    [Header("Item Display Data")]
+    [SerializeField] private GameObject hook_object;
+    [SerializeField] private GameObject hook_pivot;
+    [SerializeField] private float hook_pivot_min;
+    [SerializeField] private float hook_pivot_max;
+    private float hook_pivot_default;
+    [SerializeField] private GameObject staff_object;
+    [SerializeField] private Vector2 staff_offset;
+
     // Movement data
     [Header("Movement Data")]
     [SerializeField] private Dungeon dungeon;
@@ -141,6 +150,7 @@ public class Player_Char : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        hook_pivot_default = hook_pivot.transform.eulerAngles.x;
         respawn_loc = transform.position;
         rb = gameObject.GetComponent<Rigidbody>();
         Start_Timer();
@@ -198,7 +208,7 @@ public class Player_Char : MonoBehaviour
                     } else if (item_grapple_hook.use_timer < 0.0f) {
                         // Perform raycast from player to mouse target
                         RaycastHit hit;
-                        Vector3 sourcePos = gameObject.transform.position;
+                        Vector3 sourcePos = hook_object.gameObject.transform.position;
                         Vector3 targetPos = Get_Mouse_World_Position();
                         targetPos.z = sourcePos.z;
                         Vector3 direction = targetPos - sourcePos;
@@ -221,7 +231,7 @@ public class Player_Char : MonoBehaviour
 
                     if (item_blasting_staff.fire_timer < 0.0f) {
                         // Fire staff of blasting
-                        Vector3 sourcePos = gameObject.transform.position;
+                        Vector3 sourcePos = staff_object.gameObject.transform.position;
                         Vector3 targetPos = Get_Mouse_World_Position();
                         targetPos.z = sourcePos.z;
                         Vector3 direction = targetPos - sourcePos;
@@ -237,6 +247,7 @@ public class Player_Char : MonoBehaviour
 
                         Blast_Proj proj = Instantiate(item_blasting_staff.proj);
 
+                        /*
                         float pl_ext_x = gameObject.GetComponent<Collider>().bounds.extents.x;
                         float pl_ext_y = gameObject.GetComponent<Collider>().bounds.extents.y;
                         float pr_ext_x = proj.gameObject.GetComponent<Collider>().bounds.extents.x;
@@ -248,9 +259,14 @@ public class Player_Char : MonoBehaviour
                             spawn_rad * Mathf.Sin(angle)
                         );
 
+                        if (!staff_use_offset) {
+                            offset = Vector2.zero;
+                        }
+                        */
+
                         proj.transform.position = new Vector3(
-                            transform.position.x + offset.x,
-                            transform.position.y + offset.y,
+                            transform.position.x + (staff_offset.x * (heading < 0 ? -1.0f : 1.0f)),
+                            transform.position.y + staff_offset.y,
                             transform.position.z
                         );
                         proj.gameObject.GetComponent<Rigidbody>().AddForce(
@@ -374,10 +390,44 @@ public class Player_Char : MonoBehaviour
                 joint.spring = Mathf.Clamp(joint.spring, 0.0f, item_grapple_hook.max_spring);
 
                 // Manage line renderer
+                line.SetPosition(0, hook_object.transform.position - transform.position);
                 line.SetPosition(1, item_grapple_hook.target.transform.position - transform.position);
+
+                // Aim hook pivot
+                float hook_angle = Mathf.Rad2Deg * Mathf.Atan2(
+                    hook_object.transform.position.y - item_grapple_hook.target.transform.position.y,
+                    hook_object.transform.position.x - item_grapple_hook.target.transform.position.x
+                );
+                hook_angle = (hook_angle + 720.0f) % 360.0f;    // Standardize angle
+                if (hook_angle >= 270.0f || hook_angle <= 90.0f) {
+                    if (hook_angle > 180.0f) {
+                        hook_angle = 360.0f - hook_angle;
+                    } else {
+                        hook_angle *= -1.0f;
+                    }
+                } else {
+                    hook_angle -= 180.0f;
+                }
+                if (heading > 0) {
+                    hook_angle *= -1.0f;
+                }
+
+                hook_pivot.transform.eulerAngles = new Vector3(
+                    Mathf.Clamp(hook_angle, hook_pivot_min, hook_pivot_max),
+                    hook_pivot.transform.eulerAngles.y,
+                    hook_pivot.transform.eulerAngles.z
+                );
             } else {
                 // Hide line renderer
+                line.SetPosition(0, Vector3.zero);
                 line.SetPosition(1, Vector3.zero);
+
+                // Reset hook pivot
+                hook_pivot.transform.eulerAngles = new Vector3(
+                    hook_pivot_default,
+                    hook_pivot.transform.eulerAngles.y,
+                    hook_pivot.transform.eulerAngles.z
+                );
             }
         }
 
@@ -454,6 +504,7 @@ public class Player_Char : MonoBehaviour
         if (is_hooked) {
             // Verify that grapple hook still has line of sight to target
             RaycastHit hit;
+            //Vector3 sourcePos = hook_object.gameObject.transform.position;
             Vector3 sourcePos = gameObject.transform.position;
             sourcePos.y -= 0.5f * gameObject.GetComponent<Collider>().bounds.extents.y;
             Vector3 targetPos = item_grapple_hook.target.transform.position;
@@ -565,6 +616,9 @@ public class Player_Char : MonoBehaviour
                 }
                 break;
         }
+
+        hook_object.gameObject.SetActive(item_current == PC_Item.Hook);
+        staff_object.gameObject.SetActive(item_current == PC_Item.Staff);
     }
 
     public void Load_Scene(string scene) {
