@@ -145,6 +145,12 @@ public class Player_Char : MonoBehaviour
     void Awake()
     {
         health_max = health;
+        
+        // Reset inventory
+        // Originally stored static to manage inventory across dungeons
+        // Multiple dungeon feature was removed
+        inv_has_grapple_hook = false;
+        inv_has_blast_staff = false;
     }
 
     // Start is called before the first frame update
