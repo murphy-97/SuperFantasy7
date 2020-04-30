@@ -126,6 +126,8 @@ public class Player_Char : MonoBehaviour
     [SerializeField] private GameObject end_screen;
     [SerializeField] private Text end_time;
 
+    [SerializeField] private Image health_bar;
+
     private float level_timer = 0.0f;
     private bool run_timer = false;
 
@@ -438,7 +440,8 @@ public class Player_Char : MonoBehaviour
              jump_boost_timer = jump_boost_time;
              Destroy(other.gameObject);
 
-         }     }
+         }
+    }
 
     // Used by the physics system
     void FixedUpdate()
@@ -464,6 +467,11 @@ public class Player_Char : MonoBehaviour
                 }
             }
         }
+
+        // Update health UI
+        if (health_bar != null) {
+            health_bar.fillAmount = Mathf.Clamp((float)health / (float)health_max, 0.0f, 1.0f);
+        }
     }
 
     /* SPECIFIED METHODS */
@@ -480,11 +488,13 @@ public class Player_Char : MonoBehaviour
     }
 
     public void Take_Damage(int d) {
-        health -= d;
-        if (health <= 0) {
-            transform.position = respawn_loc;
-            health = health_max;
-            level_timer += respawn_time_penalty;
+        if (health > 0) {
+            health -= d;
+            if (health <= 0) {
+                transform.position = respawn_loc;
+                health = health_max;
+                level_timer += respawn_time_penalty;
+            }
         }
     }
 

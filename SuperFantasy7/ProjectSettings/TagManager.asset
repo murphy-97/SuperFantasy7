@@ -12,6 +12,7 @@ TagManager:
   - Pickup_Finish
   - Pickup_Speed
   - Pickup_Jump
+  - Breakable_Trap
   layers:
   - Default
   - TransparentFX

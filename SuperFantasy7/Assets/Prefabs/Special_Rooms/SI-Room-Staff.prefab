@@ -356,7 +356,7 @@ TextMesh:
   m_GameObject: {fileID: 3487627967470066949}
   m_Text: 'Pickup the Blasting Staff to destroy
 
-    Yellow Walls and Platforms.'
+    Yellow Platforms and Blue Traps.'
   m_OffsetZ: 0
   m_CharacterSize: 0.25
   m_LineSpacing: 1
