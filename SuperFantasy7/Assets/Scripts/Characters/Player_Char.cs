@@ -135,6 +135,7 @@ public class Player_Char : MonoBehaviour
     [SerializeField] private GameObject end_screen;
     [SerializeField] private Text end_time;
 
+    [SerializeField] private GameObject pause_menu;
     [SerializeField] private Image health_bar;
 
     private float level_timer = 0.0f;
@@ -165,6 +166,15 @@ public class Player_Char : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        // Handle pause state
+        if (Time.timeScale <= 0.0f) {
+            return;
+        }
+        if (Input.GetButtonDown("Pause")) {
+            Set_Paused(true);
+        }
+
+
         /* BEGIN PLAYER CONTROLS */
         /*
             Controls are set in the Unity configuration launch menu. By using
@@ -625,6 +635,11 @@ public class Player_Char : MonoBehaviour
 
         hook_object.gameObject.SetActive(item_current == PC_Item.Hook);
         staff_object.gameObject.SetActive(item_current == PC_Item.Staff);
+    }
+
+    public void Set_Paused(bool p) {
+        Time.timeScale = (p ? 0.0f : 1.0f);
+        pause_menu.gameObject.SetActive(p);
     }
 
     public void Load_Scene(string scene) {
